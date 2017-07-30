@@ -3,8 +3,8 @@
     <string name="register">Register</string>
     <string name="login">Login</string>
 
-    <string name="register_name_hint">Name</string>
-    <string name="register_email_hint">Email</string>
-    <string name="register_password_hint">Password</string>
-    <string name="register_confirm_hint">Confirm</string>
+    <string name="name_hint">Name</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="confirm_hint">Confirm</string>
 </resources>

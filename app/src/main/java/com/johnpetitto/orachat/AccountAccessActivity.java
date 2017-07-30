@@ -12,6 +12,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AccountAccessActivity extends AppCompatActivity {
+    private static final int REGISTER_POSITION = 0;
+    private static final int LOGIN_POSITION = 1;
+
     @BindView(R.id.account_access_tab_layout) TabLayout tabLayout;
     @BindView(R.id.account_access_view_pager) ViewPager viewPager;
 
@@ -22,13 +25,11 @@ public class AccountAccessActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         viewPager.setAdapter(new TabPagerAdapter(getSupportFragmentManager()));
+        viewPager.setCurrentItem(LOGIN_POSITION);
         tabLayout.setupWithViewPager(viewPager);
     }
 
     private class TabPagerAdapter extends FragmentPagerAdapter {
-        static final int REGISTER = 0;
-        static final int LOGIN = 1;
-
         TabPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -36,9 +37,9 @@ public class AccountAccessActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case REGISTER:
+                case REGISTER_POSITION:
                     return new RegisterFragment();
-                case LOGIN:
+                case LOGIN_POSITION:
                     return new LoginFragment();
             }
             return null;
@@ -52,9 +53,9 @@ public class AccountAccessActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position) {
-                case REGISTER:
+                case REGISTER_POSITION:
                     return getString(R.string.register);
-                case LOGIN:
+                case LOGIN_POSITION:
                     return getString(R.string.login);
             }
             return null;
