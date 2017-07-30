@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">OraChat</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+</resources>
