@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class RegisterFragment extends Fragment {
@@ -21,12 +22,25 @@ public class RegisterFragment extends Fragment {
     @BindView(R.id.register_button) Button button;
     private Unbinder unbinder;
 
+    private UserModel userModel;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_register, container, false);
         unbinder = ButterKnife.bind(this, rootView);
+        userModel = ((OraChatApplication) getContext().getApplicationContext()).getUserModel();
         return rootView;
+    }
+
+    @OnClick(R.id.register_button)
+    public void register(View view) {
+        userModel.createUser(
+                name.getText().toString(),
+                email.getText().toString(),
+                password.getText().toString(),
+                confirm.getText().toString()
+        ).subscribe();
     }
 
     @Override

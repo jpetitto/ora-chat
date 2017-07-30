@@ -1,12 +1,12 @@
 package com.johnpetitto.orachat;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,6 +17,8 @@ public class AccountAccessActivity extends AppCompatActivity {
 
     @BindView(R.id.account_access_tab_layout) TabLayout tabLayout;
     @BindView(R.id.account_access_view_pager) ViewPager viewPager;
+
+    private UserModel userModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
