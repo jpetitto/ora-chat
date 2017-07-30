@@ -1,5 +1,6 @@
 package com.johnpetitto.orachat;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ProgressBar;
+
+import com.johnpetitto.orachat.login.LoginFragment;
+import com.johnpetitto.orachat.register.RegisterFragment;
+import com.johnpetitto.orachat.user.UserModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,13 +24,12 @@ public class AccountAccessActivity extends AppCompatActivity {
 
     @BindView(R.id.account_access_tab_layout) TabLayout tabLayout;
     @BindView(R.id.account_access_view_pager) ViewPager viewPager;
-
-    private UserModel userModel;
+    @BindView(R.id.account_access_progress_bar) ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_account_access);
         ButterKnife.bind(this);
 
         viewPager.setAdapter(new TabPagerAdapter(getSupportFragmentManager()));
@@ -62,5 +68,19 @@ public class AccountAccessActivity extends AppCompatActivity {
             }
             return null;
         }
+    }
+
+    public UserModel getUserModel() {
+        return ((OraChatApplication) getApplication()).getUserModel();
+    }
+
+    public void showProgressBar(boolean show) {
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        viewPager.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+    }
+
+    public void startMainActivity() {
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }

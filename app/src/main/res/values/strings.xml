@@ -7,4 +7,7 @@
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
     <string name="confirm_hint">Confirm</string>
+
+    <string name="registration_error">There was an error trying to register.</string>
+    <string name="login_error">There was an error attempting to login.</string>
 </resources>

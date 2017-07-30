@@ -2,6 +2,10 @@ package com.johnpetitto.orachat;
 
 import android.app.Application;
 
+import com.johnpetitto.orachat.user.UserModel;
+import com.johnpetitto.orachat.user.UserPreferences;
+import com.johnpetitto.orachat.user.UserService;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.logging.HttpLoggingInterceptor;

@@ -1,5 +1,9 @@
-package com.johnpetitto.orachat;
+package com.johnpetitto.orachat.user;
 
+import com.johnpetitto.orachat.login.LoginUser;
+import com.johnpetitto.orachat.register.CreateUser;
+
+import io.reactivex.Completable;
 import io.reactivex.Single;
 import okhttp3.ResponseBody;
 
@@ -12,11 +16,11 @@ public class UserModel {
         this.preferences = preferences;
     }
 
-    public Single<ResponseBody> createUser(String name, String email, String password, String passwordConfirmation) {
+    public Completable createUser(String name, String email, String password, String passwordConfirmation) {
         return service.create(new CreateUser(name, email, password, passwordConfirmation));
     }
 
-    public Single<Boolean> loginUser(String email, String password) {
+    public Completable loginUser(String email, String password) {
         return service.login(new LoginUser(email, password))
                 .doOnSuccess(result -> {
                     retrofit2.Response<ResponseBody> response = result.response();
@@ -25,7 +29,7 @@ public class UserModel {
                         preferences.setAuthorizationToken(token);
                     }
                 })
-                .map(result -> !result.isError());
+                .toCompletable();
     }
 
     public Single<ResponseBody> currentUser() {
