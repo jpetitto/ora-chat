@@ -50,7 +50,7 @@ public class LoginFragment extends Fragment implements LoginView {
     }
 
     @Override
-    public void showProgress(boolean show) {
+    public void showLoading(boolean show) {
         activity.showProgressBar(show);
     }
 

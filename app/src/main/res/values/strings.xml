@@ -14,4 +14,34 @@
 
     <string name="chat">Chat</string>
     <string name="account">Account</string>
+
+    <string name="chat_item_name">%1$s by %2$s</string>
+    <string name="chat_item_last_update">%1$s - %2$s ago</string>
+
+    <string name="today">Today</string>
+    
+    <plurals name="seconds_suffix">
+        <item quantity="one">1 sec</item>
+        <item quantity="other">%d secs</item>
+    </plurals>
+    
+    <plurals name="minutes_suffix">
+        <item quantity="one">1 min</item>
+        <item quantity="other">%d mins</item>
+    </plurals>
+
+    <plurals name="hours_suffix">
+        <item quantity="one">1 hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+
+    <plurals name="days_suffix">
+        <item quantity="one">1 day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+
+    <plurals name="years_suffix">
+        <item quantity="one">1 year</item>
+        <item quantity="other">%d years</item>
+    </plurals>
 </resources>

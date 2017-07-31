@@ -2,6 +2,8 @@ package com.johnpetitto.orachat;
 
 import android.app.Application;
 
+import com.johnpetitto.orachat.chats.ChatModel;
+import com.johnpetitto.orachat.chats.ChatService;
 import com.johnpetitto.orachat.user.UserModel;
 import com.johnpetitto.orachat.user.UserPreferences;
 import com.johnpetitto.orachat.user.UserService;
@@ -17,6 +19,7 @@ public class OraChatApplication extends Application {
     private Retrofit retrofit;
     private UserPreferences userPreferences;
     private UserModel userModel;
+    private ChatModel chatModel;
 
     @Override
     public void onCreate() {
@@ -54,6 +57,8 @@ public class OraChatApplication extends Application {
 
         userPreferences = new UserPreferences(this);
         userModel = new UserModel(retrofit.create(UserService.class), userPreferences);
+
+        chatModel = new ChatModel(retrofit.create(ChatService.class));
     }
 
     public Retrofit getRetrofit() {
@@ -62,5 +67,9 @@ public class OraChatApplication extends Application {
 
     public UserModel getUserModel() {
         return userModel;
+    }
+
+    public ChatModel getChatModel() {
+        return chatModel;
     }
 }

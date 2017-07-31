@@ -22,12 +22,12 @@ public class LoginPresenter {
     }
 
     public void login(String email, String password) {
-        view.showProgress(true);
+        view.showLoading(true);
 
         disposable = userModel.loginUser(email, password)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> view.navigateToMain(), throwable -> {
-                    view.showProgress(false);
+                    view.showLoading(false);
                     view.showLoginFailure();
                 });
     }

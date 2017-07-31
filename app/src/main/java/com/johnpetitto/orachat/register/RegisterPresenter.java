@@ -22,12 +22,12 @@ public class RegisterPresenter {
     }
 
     public void register(String name, String email, String password, String passwordConfirmation) {
-        view.showProgress(true);
+        view.showLoading(true);
 
         disposable = model.createUser(name, email, password, passwordConfirmation)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> view.navigateToMain(), throwable -> {
-                    view.showProgress(false);
+                    view.showLoading(false);
                     view.showRegistrationFailure();
                 });
     }

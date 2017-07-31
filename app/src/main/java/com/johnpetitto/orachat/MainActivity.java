@@ -12,10 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.johnpetitto.orachat.chats.ChatsFragment;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener,
+        BottomNavigationView.OnNavigationItemSelectedListener {
+
     private static final int CHAT_POSITION = 0;
     private static final int ACCOUNT_POSITION = 1;
 
@@ -61,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         public Fragment getItem(int position) {
             switch (position) {
                 case CHAT_POSITION:
-                    return new ChatFragment();
+                    return new ChatsFragment();
                 case ACCOUNT_POSITION:
                     return new AccountFragment();
             }
