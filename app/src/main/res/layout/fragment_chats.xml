@@ -1,20 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/chats_recycler_view"
+    <!-- CoordinatorLayout + RelativeLayout required for FloatingSearchView -->
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/chats_new"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_add"
-        android:tint="@android:color/white" />
+        <!-- Top padding required to sit below FloatingSearchView -->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/chats_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="60dp"
+            android:clipToPadding="false" />
 
-</FrameLayout>
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/chats_new"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_add"
+            android:tint="@android:color/white" />
+
+        <com.arlib.floatingsearchview.FloatingSearchView
+            android:id="@+id/chats_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            android:id="@+id/chats_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            style="@style/Widget.AppCompat.ProgressBar" />
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

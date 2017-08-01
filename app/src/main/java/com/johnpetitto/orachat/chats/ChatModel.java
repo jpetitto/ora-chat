@@ -26,7 +26,11 @@ public class ChatModel {
 
     // TODO: add pagination
     public Single<List<Object>> getAllChatsByDate() {
-        return service.list(1, 50)
+        return searchChatsByName(null);
+    }
+
+    public Single<List<Object>> searchChatsByName(String name) {
+        return service.list(null, 1, 50)
                 .map(responseBody -> {
                     // extract "data" field from response
                     JsonParser parser = new JsonParser();

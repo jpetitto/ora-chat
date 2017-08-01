@@ -7,5 +7,5 @@ import retrofit2.http.Query;
 
 public interface ChatService {
     @GET("chats")
-    Single<ResponseBody> list(@Query("page") int page, @Query("limit") int limit);
+    Single<ResponseBody> list(@Query("name") String name, @Query("page") int page, @Query("limit") int limit);
 }

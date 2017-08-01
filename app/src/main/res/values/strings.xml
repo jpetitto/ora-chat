@@ -11,9 +11,13 @@
 
     <string name="registration_error">There was an error trying to register.</string>
     <string name="login_error">There was an error attempting to login.</string>
+    <string name="generic_error">Oops, something went wrong!</string>
 
     <string name="chat">Chat</string>
     <string name="account">Account</string>
+
+    <string name="new_chat">Create new chat</string>
+    <string name="create">Create</string>
 
     <string name="chat_item_name">%1$s by %2$s</string>
     <string name="chat_item_last_update">%1$s - %2$s ago</string>
