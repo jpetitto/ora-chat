@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 public final class TimeUtils {
     private TimeUtils() {}
 
-    public static final DateFormat dateParser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXX", Locale.ENGLISH);
+    public static final DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXX", Locale.ENGLISH);
 
     private static final long SECONDS = TimeUnit.SECONDS.toMillis(1);
     private static final long MINUTES = TimeUnit.MINUTES.toMillis(1);
@@ -25,7 +25,7 @@ public final class TimeUtils {
     public static String getTimeAgo(Context context, String createdAt) {
         try {
             long currentTime = new Date().getTime();
-            long createdAtTime = dateParser.parse(createdAt).getTime();
+            long createdAtTime = dateFormatter.parse(createdAt).getTime();
             long diff = currentTime - createdAtTime;
 
             if (diff < MINUTES) {

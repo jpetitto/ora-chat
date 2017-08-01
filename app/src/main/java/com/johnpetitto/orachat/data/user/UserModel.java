@@ -1,11 +1,12 @@
 package com.johnpetitto.orachat.data.user;
 
+import com.johnpetitto.orachat.data.ApiResponse;
+import com.johnpetitto.orachat.data.ResponseTransformer;
 import com.johnpetitto.orachat.ui.login.LoginUser;
 import com.johnpetitto.orachat.ui.register.CreateUser;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
-import okhttp3.ResponseBody;
 
 public class UserModel {
     private UserService service;
@@ -17,22 +18,43 @@ public class UserModel {
     }
 
     public Completable createUser(String name, String email, String password, String passwordConfirmation) {
-        return service.create(new CreateUser(name, email, password, passwordConfirmation));
+        return service.create(new CreateUser(name, email, password, passwordConfirmation))
+                .compose(new ResponseTransformer<>())
+                .toCompletable();
     }
 
     public Completable loginUser(String email, String password) {
         return service.login(new LoginUser(email, password))
                 .doOnSuccess(result -> {
-                    retrofit2.Response<ResponseBody> response = result.response();
+                    retrofit2.Response<ApiResponse<User>> response = result.response();
                     if (response != null) {
                         String token = response.headers().get("Authorization");
                         preferences.setAuthorizationToken(token);
                     }
                 })
+                .flatMap(result -> {
+                    retrofit2.Response<ApiResponse<User>> response = result.response();
+                    if (response != null) {
+                        // obtain authorization token from response header
+                        String token = response.headers().get("Authorization");
+                        preferences.setAuthorizationToken(token);
+
+                        // route response depending on success/failure
+                        ApiResponse<User> responseBody = response.body();
+                        if (responseBody != null) {
+                            return Single.just(responseBody);
+                        } else {
+                            return Single.error(new Throwable(response.message()));
+                        }
+                    }
+
+                    return Single.error(new Throwable()); // this should never happen
+                })
+                .compose(new ResponseTransformer<>())
                 .toCompletable();
     }
 
-    public Single<ResponseBody> currentUser() {
-        return service.currentUser();
+    public Single<User> currentUser() {
+        return service.currentUser().compose(new ResponseTransformer<>());
     }
 }

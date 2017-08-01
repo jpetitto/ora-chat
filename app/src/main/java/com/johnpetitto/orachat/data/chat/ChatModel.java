@@ -1,6 +1,7 @@
 package com.johnpetitto.orachat.data.chat;
 
 import com.johnpetitto.orachat.TimeUtils;
+import com.johnpetitto.orachat.data.ResponseTransformer;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -25,10 +26,9 @@ public class ChatModel {
     }
 
     public Single<List<Object>> searchChatsByName(String name) {
-        return service.chats(null, 1, 50)
-                .map(response -> {
+        return service.chats(name, 1, 50).compose(new ResponseTransformer<>())
+                .map(chats -> {
                     // create list of chats grouped by formatted date labels
-                    List<Chat> chats = response.getData();
                     List<Object> chatsGroupedByDate = new ArrayList<>();
 
                     DateFormat monthDayFormatter = new SimpleDateFormat("MMMM d", Locale.ENGLISH);
@@ -40,7 +40,7 @@ public class ChatModel {
                     for (Chat chat : chats) {
                         // parse date for most recent chat message
                         String createdAt = chat.getLastChatMessage().getCreatedAt();
-                        Date parsedDate = TimeUtils.dateParser.parse(createdAt);
+                        Date parsedDate = TimeUtils.dateFormatter.parse(createdAt);
                         currentDate.setTime(parsedDate);
 
                         // create properly formatted date label
@@ -69,5 +69,9 @@ public class ChatModel {
 
                     return chatsGroupedByDate;
                 });
+    }
+
+    public Single<List<ChatMessage>> getMessagesForChat(int chatId) {
+        return service.chatMessages(chatId, 1, 50).compose(new ResponseTransformer<>());
     }
 }

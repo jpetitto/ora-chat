@@ -11,6 +11,15 @@ public class ChatMessage {
     private @SerializedName("created_at") String createdAt;
     private User user;
 
+    public ChatMessage(long id, long chatId, long userId, String message, String createdAt, User user) {
+        this.id = id;
+        this.chatId = chatId;
+        this.userId = userId;
+        this.message = message;
+        this.createdAt = createdAt;
+        this.user = user;
+    }
+
     public long getId() {
         return id;
     }

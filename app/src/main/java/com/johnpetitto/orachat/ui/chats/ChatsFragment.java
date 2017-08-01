@@ -1,6 +1,7 @@
 package com.johnpetitto.orachat.ui.chats;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,7 +23,9 @@ import android.widget.Toast;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.johnpetitto.orachat.OraChatApplication;
 import com.johnpetitto.orachat.R;
+import com.johnpetitto.orachat.data.chat.Chat;
 import com.johnpetitto.orachat.data.chat.ChatModel;
+import com.johnpetitto.orachat.ui.chatroom.ChatroomActivity;
 
 import java.util.List;
 
@@ -32,7 +35,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class ChatsFragment extends Fragment implements ChatsView, FloatingSearchView.OnQueryChangeListener {
+public class ChatsFragment extends Fragment implements ChatsView, FloatingSearchView.OnQueryChangeListener, ChatsAdapter.OnChatClickListener {
     @BindView(R.id.chats_recycler_view) RecyclerView recyclerView;
     @BindView(R.id.chats_search_view) FloatingSearchView searchView;
     @BindView(R.id.chats_progress_bar) ProgressBar progressBar;
@@ -54,7 +57,7 @@ public class ChatsFragment extends Fragment implements ChatsView, FloatingSearch
         presenter = new ChatsPresenter(this, model);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ChatsAdapter();
+        adapter = new ChatsAdapter(this);
         recyclerView.setAdapter(adapter);
 
         searchView.setOnQueryChangeListener(this);
@@ -88,8 +91,11 @@ public class ChatsFragment extends Fragment implements ChatsView, FloatingSearch
         AlertDialog dialog = new AlertDialog.Builder(getContext())
                 .setTitle(R.string.new_chat)
                 .setView(container)
-                .setPositiveButton(R.string.create, (dialogInterface, i) ->
-                        Toast.makeText(getContext(), chatName.getText().toString(), Toast.LENGTH_SHORT).show())
+                .setPositiveButton(R.string.create, (dialogInterface, i) -> {
+                    Intent intent = new Intent(getActivity(), ChatroomActivity.class);
+                    intent.putExtra("chat_name", chatName.getText().toString());
+                    startActivity(intent);
+                })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
 
@@ -137,5 +143,13 @@ public class ChatsFragment extends Fragment implements ChatsView, FloatingSearch
     public void onSearchTextChanged(String oldQuery, String newQuery) {
         // TODO throttle
         presenter.searchChatsByName(newQuery);
+    }
+
+    @Override
+    public void onChatClick(Chat chat) {
+        Intent intent = new Intent(getActivity(), ChatroomActivity.class);
+        intent.putExtra("chat_id", chat.getId());
+        intent.putExtra("chat_name", chat.getName());
+        startActivity(intent);
     }
 }

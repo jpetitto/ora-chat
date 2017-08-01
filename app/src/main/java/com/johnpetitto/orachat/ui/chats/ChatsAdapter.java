@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.johnpetitto.orachat.R;
 import com.johnpetitto.orachat.TimeUtils;
@@ -25,6 +24,15 @@ public class ChatsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private static final int ITEM_TYPE = 1;
 
     private List<Object> data = new ArrayList<>();
+    private OnChatClickListener listener;
+
+    public interface OnChatClickListener {
+        void onChatClick(Chat chat);
+    }
+
+    public ChatsAdapter(OnChatClickListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -69,13 +77,13 @@ public class ChatsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 ChatMessage lastMessage = chat.getLastChatMessage();
                 String lastUserName = lastMessage.getUser().getName();
                 String timeAgo = TimeUtils.getTimeAgo(context, lastMessage.getCreatedAt());
-                String formattedLastUpdate = context.getString(R.string.chat_item_last_update, lastUserName, timeAgo);
+                String formattedLastUpdate = context.getString(R.string.chat_message_timestamp, lastUserName, timeAgo);
                 item.lastUpdate.setText(formattedLastUpdate);
 
                 item.lastMessage.setText(lastMessage.getMessage());
 
                 item.itemView.setOnClickListener(view ->
-                        Toast.makeText(context, "Show chat messages", Toast.LENGTH_SHORT).show()
+                        listener.onChatClick(chat)
                 );
 
                 break;
