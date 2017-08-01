@@ -28,7 +28,9 @@ public final class TimeUtils {
             long createdAtTime = dateFormatter.parse(createdAt).getTime();
             long diff = currentTime - createdAtTime;
 
-            if (diff < MINUTES) {
+            if (diff < SECONDS) {
+                return context.getString(R.string.now);
+            } if (diff < MINUTES) {
                 return getTimeSuffix(context, R.plurals.seconds_suffix, diff / SECONDS);
             } else if (diff < HOURS) {
                 return getTimeSuffix(context, R.plurals.minutes_suffix, diff / MINUTES);

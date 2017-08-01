@@ -23,7 +23,7 @@ public class ChatroomAdapter extends RecyclerView.Adapter<ChatroomAdapter.VHItem
     @Override
     public VHItem onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View itemView = inflater.inflate(R.layout.list_item_chatroom, parent, false);
+        View itemView = inflater.inflate(R.layout.list_item_chat_message, parent, false);
         return new VHItem(itemView);
     }
 

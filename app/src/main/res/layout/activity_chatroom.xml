@@ -39,8 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/content_padding"
-        android:background="@color/light_gray"
-        android:gravity="center_vertical">
+        android:background="@color/light_gray">
 
         <EditText
             android:id="@+id/chatroom_send_message"
@@ -49,14 +48,17 @@
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
             android:hint="@string/chat_message_hint"
-            android:inputType="text"
+            android:inputType="textMultiLine|textCapSentences|textAutoComplete"
             android:imeOptions="actionSend"/>
 
         <ImageView
             android:id="@+id/chatroom_send_button"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:paddingBottom="12dp"
             android:src="@drawable/ic_send"
+            android:tint="@color/send_button_tint"
             android:contentDescription="@string/send"
             android:background="?selectableItemBackgroundBorderless" />
 

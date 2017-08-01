@@ -41,10 +41,10 @@ public class ChatsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         switch (viewType) {
             case HEADER_TYPE:
-                holder = new VHHeader(inflater.inflate(R.layout.list_header_chats, parent, false));
+                holder = new VHHeader(inflater.inflate(R.layout.list_header_chat, parent, false));
                 break;
             case ITEM_TYPE:
-                holder = new VHItem(inflater.inflate(R.layout.list_item_chats, parent, false));
+                holder = new VHItem(inflater.inflate(R.layout.list_item_chat, parent, false));
                 break;
         }
 

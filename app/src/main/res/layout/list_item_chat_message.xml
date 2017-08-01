@@ -10,11 +10,12 @@
         android:id="@+id/chatroom_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:paddingTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:paddingStart="48dp"
+        android:paddingEnd="96dp"
+        android:paddingTop="24dp"
         android:paddingBottom="24dp"
-        android:background="@drawable/ic_chat_bubble"
+        android:background="@drawable/chat_bubble_left"
         tools:text="Oh hey!" />
     
     <TextView

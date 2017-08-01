@@ -7,6 +7,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -28,6 +29,8 @@ public class ChatModel {
     public Single<List<Object>> searchChatsByName(String name) {
         return service.chats(name, 1, 50).compose(new ResponseTransformer<>())
                 .map(chats -> {
+                    chats = Collections.nCopies(10, chats.get(0));
+
                     // create list of chats grouped by formatted date labels
                     List<Object> chatsGroupedByDate = new ArrayList<>();
 
