@@ -1,4 +1,4 @@
-package com.johnpetitto.orachat.chats;
+package com.johnpetitto.orachat.ui.chats;
 
 import java.util.List;
 

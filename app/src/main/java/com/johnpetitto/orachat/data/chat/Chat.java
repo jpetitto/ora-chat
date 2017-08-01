@@ -1,7 +1,7 @@
-package com.johnpetitto.orachat.chats;
+package com.johnpetitto.orachat.data.chat;
 
 import com.google.gson.annotations.SerializedName;
-import com.johnpetitto.orachat.user.User;
+import com.johnpetitto.orachat.data.user.User;
 
 import java.util.List;
 

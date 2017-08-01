@@ -1,4 +1,4 @@
-package com.johnpetitto.orachat.login;
+package com.johnpetitto.orachat.ui.login;
 
 public interface LoginView {
     void showLoading(boolean show);

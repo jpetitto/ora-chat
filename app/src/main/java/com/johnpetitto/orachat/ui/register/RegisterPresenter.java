@@ -1,6 +1,6 @@
-package com.johnpetitto.orachat.register;
+package com.johnpetitto.orachat.ui.register;
 
-import com.johnpetitto.orachat.user.UserModel;
+import com.johnpetitto.orachat.data.user.UserModel;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;

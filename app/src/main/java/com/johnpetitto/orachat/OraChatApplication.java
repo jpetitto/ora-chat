@@ -2,11 +2,11 @@ package com.johnpetitto.orachat;
 
 import android.app.Application;
 
-import com.johnpetitto.orachat.chats.ChatModel;
-import com.johnpetitto.orachat.chats.ChatService;
-import com.johnpetitto.orachat.user.UserModel;
-import com.johnpetitto.orachat.user.UserPreferences;
-import com.johnpetitto.orachat.user.UserService;
+import com.johnpetitto.orachat.data.chat.ChatModel;
+import com.johnpetitto.orachat.data.chat.ChatService;
+import com.johnpetitto.orachat.data.user.UserModel;
+import com.johnpetitto.orachat.data.user.UserPreferences;
+import com.johnpetitto.orachat.data.user.UserService;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

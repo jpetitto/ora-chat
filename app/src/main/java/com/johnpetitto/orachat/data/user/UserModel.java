@@ -1,7 +1,7 @@
-package com.johnpetitto.orachat.user;
+package com.johnpetitto.orachat.data.user;
 
-import com.johnpetitto.orachat.login.LoginUser;
-import com.johnpetitto.orachat.register.CreateUser;
+import com.johnpetitto.orachat.ui.login.LoginUser;
+import com.johnpetitto.orachat.ui.register.CreateUser;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;

@@ -1,4 +1,4 @@
-package com.johnpetitto.orachat.chats;
+package com.johnpetitto.orachat.ui.chats;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.johnpetitto.orachat.OraChatApplication;
 import com.johnpetitto.orachat.R;
+import com.johnpetitto.orachat.data.chat.ChatModel;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.johnpetitto.orachat.user;
+package com.johnpetitto.orachat.data.user;
 
 public class User {
     private long id;

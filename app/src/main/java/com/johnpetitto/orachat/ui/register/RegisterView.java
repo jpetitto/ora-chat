@@ -1,4 +1,4 @@
-package com.johnpetitto.orachat.register;
+package com.johnpetitto.orachat.ui.register;
 
 public interface RegisterView {
     void showLoading(boolean show);

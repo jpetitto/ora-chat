@@ -1,4 +1,4 @@
-package com.johnpetitto.orachat.chats;
+package com.johnpetitto.orachat.ui.chats;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +10,9 @@ import android.widget.Toast;
 
 import com.johnpetitto.orachat.R;
 import com.johnpetitto.orachat.TimeUtils;
-import com.johnpetitto.orachat.user.User;
+import com.johnpetitto.orachat.data.chat.Chat;
+import com.johnpetitto.orachat.data.chat.ChatMessage;
+import com.johnpetitto.orachat.data.user.User;
 
 import java.util.ArrayList;
 import java.util.List;

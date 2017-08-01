@@ -1,4 +1,4 @@
-package com.johnpetitto.orachat;
+package com.johnpetitto.orachat.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.johnpetitto.orachat.chats.ChatsFragment;
+import com.johnpetitto.orachat.R;
+import com.johnpetitto.orachat.ui.chats.ChatsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

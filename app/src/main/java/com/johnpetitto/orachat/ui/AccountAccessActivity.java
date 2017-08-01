@@ -1,4 +1,4 @@
-package com.johnpetitto.orachat;
+package com.johnpetitto.orachat.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.johnpetitto.orachat.login.LoginFragment;
-import com.johnpetitto.orachat.register.RegisterFragment;
-import com.johnpetitto.orachat.user.UserModel;
+import com.johnpetitto.orachat.OraChatApplication;
+import com.johnpetitto.orachat.R;
+import com.johnpetitto.orachat.data.user.UserModel;
+import com.johnpetitto.orachat.ui.login.LoginFragment;
+import com.johnpetitto.orachat.ui.register.RegisterFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

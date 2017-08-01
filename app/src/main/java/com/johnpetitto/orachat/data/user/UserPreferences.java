@@ -1,4 +1,4 @@
-package com.johnpetitto.orachat.user;
+package com.johnpetitto.orachat.data.user;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

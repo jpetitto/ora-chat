@@ -1,4 +1,4 @@
-package com.johnpetitto.orachat.login;
+package com.johnpetitto.orachat.ui.login;
 
 public class LoginUser {
     private String email;

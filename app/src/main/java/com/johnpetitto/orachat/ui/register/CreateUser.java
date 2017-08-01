@@ -1,4 +1,4 @@
-package com.johnpetitto.orachat.register;
+package com.johnpetitto.orachat.ui.register;
 
 import com.google.gson.annotations.SerializedName;
 

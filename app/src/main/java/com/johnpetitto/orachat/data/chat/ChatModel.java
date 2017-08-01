@@ -1,12 +1,7 @@
-package com.johnpetitto.orachat.chats;
+package com.johnpetitto.orachat.data.chat;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 import com.johnpetitto.orachat.TimeUtils;
 
-import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,20 +25,14 @@ public class ChatModel {
     }
 
     public Single<List<Object>> searchChatsByName(String name) {
-        return service.list(null, 1, 50)
-                .map(responseBody -> {
-                    // extract "data" field from response
-                    JsonParser parser = new JsonParser();
-                    JsonObject object = parser.parse(responseBody.string()).getAsJsonObject();
-                    Gson gson = new Gson();
-                    Type type = new TypeToken<List<Chat>>(){}.getType();
-                    List<Chat> chats = gson.fromJson(object.getAsJsonArray("data"), type);
-
+        return service.chats(null, 1, 50)
+                .map(response -> {
                     // create list of chats grouped by formatted date labels
+                    List<Chat> chats = response.getData();
                     List<Object> chatsGroupedByDate = new ArrayList<>();
+
                     DateFormat monthDayFormatter = new SimpleDateFormat("MMMM d", Locale.ENGLISH);
                     DateFormat monthDayYearFormatter = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
-
                     Calendar today = Calendar.getInstance();
                     Calendar currentDate = Calendar.getInstance();
 
