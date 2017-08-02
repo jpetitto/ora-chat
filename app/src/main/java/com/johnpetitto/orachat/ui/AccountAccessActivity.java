@@ -28,9 +28,19 @@ public class AccountAccessActivity extends AppCompatActivity {
     @BindView(R.id.account_access_view_pager) ViewPager viewPager;
     @BindView(R.id.account_access_progress_bar) ProgressBar progressBar;
 
+    private UserModel userModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        userModel = ((OraChatApplication) getApplication()).getUserModel();
+
+        // automatically sign in if user is authorized
+        if (userModel.isAuthorized()) {
+            startMainActivity();
+        }
+
         setContentView(R.layout.activity_account_access);
         ButterKnife.bind(this);
 
@@ -73,7 +83,7 @@ public class AccountAccessActivity extends AppCompatActivity {
     }
 
     public UserModel getUserModel() {
-        return ((OraChatApplication) getApplication()).getUserModel();
+        return userModel;
     }
 
     public void showProgressBar(boolean show) {

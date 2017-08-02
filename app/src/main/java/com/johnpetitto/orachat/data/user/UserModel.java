@@ -72,4 +72,8 @@ public class UserModel {
                 .doOnSuccess(user -> currentUser = user)
                 .toCompletable();
     }
+
+    public boolean isAuthorized() {
+        return preferences.getAuthorizationToken() != null;
+    }
 }
