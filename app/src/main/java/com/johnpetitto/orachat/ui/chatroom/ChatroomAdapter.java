@@ -38,6 +38,10 @@ public class ChatroomAdapter extends RecyclerView.Adapter<ChatroomAdapter.VHItem
         String timeAgo = TimeUtils.getTimeAgo(context, message.getCreatedAt());
         String timestamp = context.getString(R.string.chat_message_timestamp, userName, timeAgo);
         holder.timestamp.setText(timestamp);
+
+//        ((LinearLayout) holder.itemView).setGravity(Gravity.START);
+//        holder.message.setGravity(Gravity.START);
+//        holder.message.setBackgroundResource(R.drawable.chat_bubble_left);
     }
 
     @Override

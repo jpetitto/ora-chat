@@ -3,6 +3,7 @@
 
     <string name="register">Register</string>
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
 
     <string name="name_hint">Name</string>
     <string name="email_hint">Email</string>
@@ -22,6 +23,7 @@
     <string name="apply">Apply</string>
     <string name="send">Send</string>
     <string name="edit">Edit</string>
+    <string name="update">Update</string>
 
     <string name="chat_item_name">%1$s by %2$s</string>
     <string name="chat_message_timestamp">%1$s - %2$s</string>

@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -35,6 +36,7 @@ import butterknife.OnClick;
 
 public class ChatroomActivity extends AppCompatActivity implements ChatroomView, Toolbar.OnMenuItemClickListener {
     @BindView(R.id.chatroom_toolbar) Toolbar toolbar;
+    @BindView(R.id.chatroom_content) LinearLayout content;
     @BindView(R.id.chatroom_recycler_view) RecyclerView recyclerView;
     @BindView(R.id.chatroom_progress_bar) ProgressBar progressBar;
     @BindView(R.id.chatroom_send_message) EditText sendMessageInput;
@@ -92,7 +94,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
     @Override
     public void showLoading(boolean show) {
         progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
-        recyclerView.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+        content.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
     }
 
     @Override

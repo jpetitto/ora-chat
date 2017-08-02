@@ -9,6 +9,7 @@ import io.reactivex.Single;
 public class UserModel {
     private UserService service;
     private UserPreferences preferences;
+    private User currentUser;
 
     public UserModel(UserService service, UserPreferences preferences) {
         this.service = service;
@@ -16,13 +17,13 @@ public class UserModel {
     }
 
     public Completable createUser(String name, String email, String password, String passwordConfirmation) {
-        return service.create(new CreateUser(name, email, password, passwordConfirmation))
+        return service.create(new UserCredentials(name, email, password, passwordConfirmation))
                 .compose(new ResponseTransformer<>())
                 .toCompletable();
     }
 
     public Completable loginUser(String email, String password) {
-        return service.login(new LoginUser(email, password))
+        return service.login(new UserCredentials(email, password))
                 .doOnSuccess(result -> {
                     retrofit2.Response<ApiResponse<User>> response = result.response();
                     if (response != null) {
@@ -52,7 +53,24 @@ public class UserModel {
                 .toCompletable();
     }
 
-    public Single<User> currentUser() {
-        return service.currentUser().compose(new ResponseTransformer<>());
+    public Completable logout() {
+        preferences.setAuthorizationToken(null);
+        currentUser = null;
+        return service.logout();
+    }
+
+    public Single<User> getCurrentUser() {
+        if (currentUser != null) {
+            return Single.just(currentUser);
+        } else {
+            return service.read().compose(new ResponseTransformer<>());
+        }
+    }
+
+    public Completable updateCurrentUser(String name, String email) {
+        return service.update(new UserCredentials(name, email))
+                .compose(new ResponseTransformer<>())
+                .doOnSuccess(user -> currentUser = user)
+                .toCompletable();
     }
 }

@@ -78,7 +78,7 @@ public class ChatModel {
     }
 
     public Single<ChatMessage> createNewChat(String name, String message) {
-        return service.create(new CreateChat(name, message))
+        return service.create(new NewChat(name, message))
                 .compose(new ResponseTransformer<>())
                 .map(chat -> {
                     activeChatId = chat.getId();

@@ -1,10 +1,10 @@
 package com.johnpetitto.orachat.data.chat;
 
-public class CreateChat {
+public class NewChat {
     private String name;
     private String message;
 
-    public CreateChat(String name, String message) {
+    public NewChat(String name, String message) {
         this.name = name;
         this.message = message;
     }

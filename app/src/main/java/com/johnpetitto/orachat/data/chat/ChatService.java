@@ -21,7 +21,7 @@ public interface ChatService {
     );
 
     @POST("chats")
-    Single<ApiResponse<Chat>> create(@Body CreateChat createChat);
+    Single<ApiResponse<Chat>> create(@Body NewChat chat);
 
     @PATCH("chats/{id}")
     Single<ApiResponse<Chat>> update(@Path("id") long id, @Body String name);

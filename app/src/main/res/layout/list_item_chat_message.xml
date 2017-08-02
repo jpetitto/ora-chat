@@ -3,6 +3,7 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              android:gravity="end"
               android:padding="16dp"
               android:orientation="vertical">
 
@@ -12,15 +13,15 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:paddingStart="48dp"
-        android:paddingEnd="96dp"
+        android:paddingEnd="48dp"
         android:paddingTop="24dp"
         android:paddingBottom="24dp"
-        android:background="@drawable/chat_bubble_left"
+        android:background="@drawable/chat_bubble_right"
         tools:text="Oh hey!" />
     
     <TextView
         android:id="@+id/chatroom_timestamp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimary"
         tools:text="John - 23 mins ago" />

@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.johnpetitto.orachat.R;
+import com.johnpetitto.orachat.ui.account.AccountFragment;
 import com.johnpetitto.orachat.ui.chats.ChatsFragment;
 
 import butterknife.BindView;
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+
         viewPager.setAdapter(new NavigationPagerAdapter(getSupportFragmentManager()));
         viewPager.addOnPageChangeListener(this);
         navigation.setOnNavigationItemSelectedListener(this);
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements ViewPager.OnPageC
 
     @Override
     public void onPageSelected(int position) {
+        supportInvalidateOptionsMenu();
         navigation.getMenu().getItem(position).setChecked(true);
     }
 

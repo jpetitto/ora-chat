@@ -2,13 +2,18 @@ package com.johnpetitto.orachat.data.user;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CreateUser {
+public class UserCredentials {
     private String name;
     private String email;
     private String password;
     private @SerializedName("password_confirmation") String passwordConfirmation;
 
-    public CreateUser(String name, String email, String password, String passwordConfirmation) {
+    public UserCredentials(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    public UserCredentials(String name, String email, String password, String passwordConfirmation) {
         this.name = name;
         this.email = email;
         this.password = password;
