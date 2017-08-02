@@ -5,10 +5,9 @@ public class User {
     private String name;
     private String email;
 
-    public User(long id, String name, String email) {
-        this.id = id;
+    // allows user to be created to demo chat messages
+    public User(String name) {
         this.name = name;
-        this.email = email;
     }
 
     public long getId() {

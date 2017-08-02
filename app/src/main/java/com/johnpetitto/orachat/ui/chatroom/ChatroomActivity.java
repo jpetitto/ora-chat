@@ -44,6 +44,9 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
     @BindView(R.id.chatroom_send_button) ImageView sendButton;
 
     @BindDimen(R.dimen.dialog_margin) int dialogMargin;
+    @BindDimen(R.dimen.chat_bubble_normal_padding) int bubbleNormalPadding;
+    @BindDimen(R.dimen.chat_bubble_start_padding) int bubbleStartPadding;
+    @BindDimen(R.dimen.chat_bubble_end_padding) int bubbleEndPadding;
 
     private ChatroomPresenter presenter;
     private ChatroomAdapter adapter;
@@ -64,7 +67,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
         toolbar.setOnMenuItemClickListener(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
-        adapter = new ChatroomAdapter();
+        adapter = new ChatroomAdapter(bubbleNormalPadding, bubbleStartPadding, bubbleEndPadding);
         recyclerView.setAdapter(adapter);
 
         sendButton.setEnabled(false);
@@ -119,6 +122,8 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
     @OnClick(R.id.chatroom_send_button)
     public void sendMessageClick(View view) {
         String message = StringUtils.getTrimmedInput(sendMessage);
+
+        adapter.addUserMessage(message); // for demo purposes
 
         if (newChat) {
             presenter.createNewChat(toolbar.getTitle().toString(), message);
