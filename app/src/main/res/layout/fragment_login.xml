@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_email_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
 
         <EditText
             android:id="@+id/login_email"
@@ -18,8 +21,10 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/login_password_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <EditText
             android:id="@+id/login_password"
@@ -35,8 +40,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/login"
-        android:textColor="@android:color/white"
-        android:enabled="false"
-        style="@style/Widget.AppCompat.Button.Colored" />
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

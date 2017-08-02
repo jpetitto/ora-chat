@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+
               android:orientation="vertical">
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/register_name_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
 
         <EditText
             android:id="@+id/register_name"
@@ -18,8 +22,10 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/register_email_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
 
         <EditText
             android:id="@+id/register_email"
@@ -31,8 +37,10 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/register_password_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
 
         <EditText
             android:id="@+id/register_password"
@@ -44,8 +52,10 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/register_confirm_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:errorEnabled="true">
 
         <EditText
             android:id="@+id/register_confirm"
@@ -61,8 +71,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/register"
-        android:textColor="@android:color/white"
-        android:enabled="false"
-        style="@style/Widget.AppCompat.Button.Colored" />
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

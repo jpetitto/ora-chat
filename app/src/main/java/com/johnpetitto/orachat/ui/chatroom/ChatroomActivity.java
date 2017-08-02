@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.johnpetitto.orachat.OraChatApplication;
 import com.johnpetitto.orachat.R;
+import com.johnpetitto.orachat.StringUtils;
 import com.johnpetitto.orachat.data.chat.ChatMessage;
 import com.johnpetitto.orachat.data.chat.ChatModel;
 import com.johnpetitto.orachat.ui.SimpleTextWatcher;
@@ -39,7 +40,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
     @BindView(R.id.chatroom_content) LinearLayout content;
     @BindView(R.id.chatroom_recycler_view) RecyclerView recyclerView;
     @BindView(R.id.chatroom_progress_bar) ProgressBar progressBar;
-    @BindView(R.id.chatroom_send_message) EditText sendMessageInput;
+    @BindView(R.id.chatroom_send_message) EditText sendMessage;
     @BindView(R.id.chatroom_send_button) ImageView sendButton;
 
     @BindDimen(R.dimen.dialog_margin) int dialogMargin;
@@ -67,7 +68,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
         recyclerView.setAdapter(adapter);
 
         sendButton.setEnabled(false);
-        sendMessageInput.addTextChangedListener(new SimpleTextWatcher() {
+        sendMessage.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void onTextChanged(String text) {
                 sendButton.setEnabled(text.trim().length() > 0);
@@ -117,7 +118,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
 
     @OnClick(R.id.chatroom_send_button)
     public void sendMessageClick(View view) {
-        String message = sendMessageInput.getText().toString().trim();
+        String message = StringUtils.getTrimmedInput(sendMessage);
 
         if (newChat) {
             presenter.createNewChat(toolbar.getTitle().toString(), message);
@@ -126,7 +127,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
             presenter.sendMessage(message);
         }
 
-        sendMessageInput.setText(null); // clear previous entry
+        sendMessage.setText(null); // clear previous entry
     }
 
     @Override
@@ -150,7 +151,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
                 .setTitle(R.string.edit_chat_name)
                 .setView(container)
                 .setPositiveButton(R.string.apply, (dialogInterface, i) -> {
-                    String chatName = editChatName.getText().toString().trim();
+                    String chatName = StringUtils.getTrimmedInput(editChatName);
                     toolbar.setTitle(chatName);
 
                     // only update name with server if chat has already been created

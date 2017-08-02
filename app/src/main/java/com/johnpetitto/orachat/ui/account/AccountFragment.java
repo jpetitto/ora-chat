@@ -3,9 +3,9 @@ package com.johnpetitto.orachat.ui.account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextWatcher;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,8 +20,10 @@ import android.widget.Toast;
 
 import com.johnpetitto.orachat.OraChatApplication;
 import com.johnpetitto.orachat.R;
+import com.johnpetitto.orachat.StringUtils;
 import com.johnpetitto.orachat.data.user.UserModel;
 import com.johnpetitto.orachat.ui.AccountAccessActivity;
+import com.johnpetitto.orachat.ui.InputValidator;
 import com.johnpetitto.orachat.ui.SimpleTextWatcher;
 
 import butterknife.BindView;
@@ -32,19 +34,24 @@ import butterknife.Unbinder;
 public class AccountFragment extends Fragment implements AccountView {
     @BindView(R.id.account_content) LinearLayout content;
     @BindView(R.id.account_progress_bar) ProgressBar progressBar;
+    @BindView(R.id.account_name_layout) TextInputLayout nameLayout;
     @BindView(R.id.account_name) EditText name;
+    @BindView(R.id.account_email_layout) TextInputLayout emailLayout;
     @BindView(R.id.account_email) EditText email;
     @BindView(R.id.account_update) Button update;
     private Unbinder unbinder;
 
     private AccountPresenter presenter;
 
+    private String originalName;
+    private String originalEmail;
+
     private TextWatcher updateTextWatcher = new SimpleTextWatcher() {
         @Override
         public void onTextChanged(String text) {
-            boolean validName = getInputName().length() > 0;
-            boolean validEmail = Patterns.EMAIL_ADDRESS.matcher(getInputEmail()).matches();
-            update.setEnabled(validName && validEmail);
+            boolean nameChange = !name.getText().toString().equals(originalName);
+            boolean emailChange = !email.getText().toString().equals(originalEmail);
+            update.setEnabled(nameChange || emailChange);
         }
     };
 
@@ -91,7 +98,17 @@ public class AccountFragment extends Fragment implements AccountView {
 
     @OnClick(R.id.account_update)
     public void update(View view) {
-        presenter.updateCurrentUser(name.getText().toString(), email.getText().toString());
+        boolean validated = InputValidator.validateInputs(
+                InputValidator.nameValidator(nameLayout),
+                InputValidator.emailValidator(emailLayout)
+        );
+
+        if (validated) {
+            presenter.updateCurrentUser(
+                    StringUtils.getTrimmedInput(name),
+                    StringUtils.getTrimmedInput(email)
+            );
+        }
     }
 
     @Override
@@ -107,15 +124,7 @@ public class AccountFragment extends Fragment implements AccountView {
 
     @Override
     public void populateAccountInfo(String name, String email) {
-        this.name.setText(name);
-        this.email.setText(email);
-    }
-
-    private String getInputName() {
-        return name.getText().toString().trim();
-    }
-
-    private String getInputEmail() {
-        return email.getText().toString().trim();
+        this.name.setText(originalName = name);
+        this.email.setText(originalEmail = email);
     }
 }

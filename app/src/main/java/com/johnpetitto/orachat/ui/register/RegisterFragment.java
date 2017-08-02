@@ -2,9 +2,8 @@ package com.johnpetitto.orachat.ui.register;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.text.TextWatcher;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.johnpetitto.orachat.ui.AccountAccessActivity;
 import com.johnpetitto.orachat.R;
-import com.johnpetitto.orachat.ui.SimpleTextWatcher;
+import com.johnpetitto.orachat.StringUtils;
+import com.johnpetitto.orachat.ui.AccountAccessActivity;
+import com.johnpetitto.orachat.ui.InputValidator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,28 +22,19 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class RegisterFragment extends Fragment implements RegisterView {
+    @BindView(R.id.register_name_layout) TextInputLayout nameLayout;
     @BindView(R.id.register_name) EditText name;
+    @BindView(R.id.register_email_layout) TextInputLayout emailLayout;
     @BindView(R.id.register_email) EditText email;
+    @BindView(R.id.register_password_layout) TextInputLayout passwordLayout;
     @BindView(R.id.register_password) EditText password;
+    @BindView(R.id.register_confirm_layout) TextInputLayout confirmLayout;
     @BindView(R.id.register_confirm) EditText confirm;
     @BindView(R.id.register_button) Button button;
     private Unbinder unbinder;
 
     private AccountAccessActivity activity;
     private RegisterPresenter presenter;
-
-    private TextWatcher registerTextWatcher = new SimpleTextWatcher() {
-        @Override
-        public void onTextChanged(String text) {
-            boolean validName = getInputName().length() > 0;
-            boolean validEmail = Patterns.EMAIL_ADDRESS.matcher(getInputEmail()).matches();
-
-            String password = getInputPassword();
-            boolean validPassword = password.length() > 0 && password.equals(getInputConfirm());
-
-            button.setEnabled(validName && validEmail && validPassword);
-        }
-    };
 
     @Nullable
     @Override
@@ -52,12 +43,6 @@ public class RegisterFragment extends Fragment implements RegisterView {
         unbinder = ButterKnife.bind(this, rootView);
         activity = (AccountAccessActivity) getActivity();
         presenter = new RegisterPresenter(this, activity.getUserModel());
-
-        name.addTextChangedListener(registerTextWatcher);
-        email.addTextChangedListener(registerTextWatcher);
-        password.addTextChangedListener(registerTextWatcher);
-        confirm.addTextChangedListener(registerTextWatcher);
-
         return rootView;
     }
 
@@ -70,7 +55,26 @@ public class RegisterFragment extends Fragment implements RegisterView {
 
     @OnClick(R.id.register_button)
     public void register(View view) {
-        presenter.register(getInputName(), getInputEmail(), getInputPassword(), getInputConfirm());
+        boolean validated = InputValidator.validateInputs(
+                InputValidator.nameValidator(nameLayout),
+                InputValidator.emailValidator(emailLayout),
+                InputValidator.passwordValidator(passwordLayout),
+                new InputValidator(confirmLayout, getString(R.string.confirm_error)) {
+                    @Override
+                    public boolean validate(String input) {
+                        return StringUtils.getTrimmedInput(password).equals(input);
+                    }
+                }
+        );
+
+        if (validated) {
+            presenter.register(
+                    StringUtils.getTrimmedInput(name),
+                    StringUtils.getTrimmedInput(email),
+                    StringUtils.getTrimmedInput(password),
+                    StringUtils.getTrimmedInput(confirm)
+            );
+        }
     }
 
     @Override
@@ -86,21 +90,5 @@ public class RegisterFragment extends Fragment implements RegisterView {
     @Override
     public void navigateToMain() {
         activity.startMainActivity();
-    }
-
-    private String getInputName() {
-        return name.getText().toString().trim();
-    }
-
-    private String getInputEmail() {
-        return email.getText().toString().trim();
-    }
-
-    private String getInputPassword() {
-        return password.getText().toString();
-    }
-
-    private String getInputConfirm() {
-        return confirm.getText().toString();
     }
 }
