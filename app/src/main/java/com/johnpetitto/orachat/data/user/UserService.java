@@ -1,8 +1,6 @@
 package com.johnpetitto.orachat.data.user;
 
 import com.johnpetitto.orachat.data.ApiResponse;
-import com.johnpetitto.orachat.ui.login.LoginUser;
-import com.johnpetitto.orachat.ui.register.CreateUser;
 
 import io.reactivex.Single;
 import retrofit2.adapter.rxjava2.Result;

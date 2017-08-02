@@ -2,8 +2,6 @@ package com.johnpetitto.orachat.data.user;
 
 import com.johnpetitto.orachat.data.ApiResponse;
 import com.johnpetitto.orachat.data.ResponseTransformer;
-import com.johnpetitto.orachat.ui.login.LoginUser;
-import com.johnpetitto.orachat.ui.register.CreateUser;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;

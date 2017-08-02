@@ -12,22 +12,25 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.Completable;
 import io.reactivex.Single;
 
 public class ChatModel {
     private ChatService service;
+    private long activeChatId;
 
     public ChatModel(ChatService service) {
         this.service = service;
     }
 
-    // TODO: add pagination
+    // TODO add pagination
     public Single<List<Object>> getAllChatsByDate() {
         return searchChatsByName(null);
     }
 
     public Single<List<Object>> searchChatsByName(String name) {
-        return service.chats(name, 1, 50).compose(new ResponseTransformer<>())
+        return service.list(name, 1, 50)
+                .compose(new ResponseTransformer<>())
                 .map(chats -> {
                     chats = Collections.nCopies(10, chats.get(0));
 
@@ -74,7 +77,29 @@ public class ChatModel {
                 });
     }
 
-    public Single<List<ChatMessage>> getMessagesForChat(int chatId) {
-        return service.chatMessages(chatId, 1, 50).compose(new ResponseTransformer<>());
+    public Single<ChatMessage> createNewChat(String name, String message) {
+        return service.create(new CreateChat(name, message))
+                .compose(new ResponseTransformer<>())
+                .map(chat -> {
+                    activeChatId = chat.getId();
+                    return chat.getLastChatMessage();
+                });
+    }
+
+    // TODO add pagination
+    public Single<List<ChatMessage>> getMessagesForChat(long chatId) {
+        activeChatId = chatId;
+        return service.listMessages(chatId, 1, 50).compose(new ResponseTransformer<>());
+    }
+
+    public Single<ChatMessage> sendMessage(String message) {
+        return service.createMessage(activeChatId, message)
+                .compose(new ResponseTransformer<>());
+    }
+
+    public Completable updateChatName(String name) {
+        return service.update(activeChatId, name)
+                .compose(new ResponseTransformer<>())
+                .toCompletable();
     }
 }

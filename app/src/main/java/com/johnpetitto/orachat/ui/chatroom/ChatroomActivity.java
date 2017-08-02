@@ -18,21 +18,22 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.johnpetitto.orachat.OraChatApplication;
 import com.johnpetitto.orachat.R;
-import com.johnpetitto.orachat.TimeUtils;
 import com.johnpetitto.orachat.data.chat.ChatMessage;
-import com.johnpetitto.orachat.data.user.User;
+import com.johnpetitto.orachat.data.chat.ChatModel;
 import com.johnpetitto.orachat.ui.SimpleTextWatcher;
 
-import java.util.Date;
+import java.util.List;
 
 import butterknife.BindDimen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ChatroomActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
+public class ChatroomActivity extends AppCompatActivity implements ChatroomView, Toolbar.OnMenuItemClickListener {
     @BindView(R.id.chatroom_toolbar) Toolbar toolbar;
     @BindView(R.id.chatroom_recycler_view) RecyclerView recyclerView;
     @BindView(R.id.chatroom_progress_bar) ProgressBar progressBar;
@@ -41,7 +42,10 @@ public class ChatroomActivity extends AppCompatActivity implements Toolbar.OnMen
 
     @BindDimen(R.dimen.dialog_margin) int dialogMargin;
 
+    private ChatroomPresenter presenter;
     private ChatroomAdapter adapter;
+
+    private boolean newChat;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,24 +71,60 @@ public class ChatroomActivity extends AppCompatActivity implements Toolbar.OnMen
                 sendButton.setEnabled(text.trim().length() > 0);
             }
         });
+
+        ChatModel model = ((OraChatApplication) getApplication()).getChatModel();
+        presenter = new ChatroomPresenter(this, model);
+
+        if (intent.hasExtra("chat_id")) {
+            long chatId = intent.getLongExtra("chat_id", 0);
+            presenter.getInitialMessages(chatId);
+        } else {
+            newChat = true;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
+    }
+
+    @Override
+    public void showLoading(boolean show) {
+        progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        recyclerView.setVisibility(show ? View.INVISIBLE : View.VISIBLE);
+    }
+
+    @Override
+    public void showError() {
+        Toast.makeText(this, R.string.generic_error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showInitialMessages(List<ChatMessage> messages) {
+        for (ChatMessage message : messages) {
+            showNewMessage(message);
+        }
+    }
+
+    @Override
+    public void showNewMessage(ChatMessage message) {
+        adapter.addMessage(message);
+        recyclerView.scrollToPosition(0);
     }
 
     @OnClick(R.id.chatroom_send_button)
     public void sendMessageClick(View view) {
-        sendMessage();
-    }
-
-    private void sendMessage() {
-        // TODO: make server call
         String message = sendMessageInput.getText().toString().trim();
-        String createdAt = TimeUtils.dateFormatter.format(new Date());
-        User user = new User(0, "John", "john@orainteractive.com");
-        ChatMessage chatMessage = new ChatMessage(0, 0, 0, message, createdAt, user);
+
+        if (newChat) {
+            presenter.createNewChat(toolbar.getTitle().toString(), message);
+            newChat = false;
+        } else {
+            presenter.sendMessage(message);
+        }
 
         sendMessageInput.setText(null); // clear previous entry
-
-        adapter.addMessage(chatMessage);
-        recyclerView.scrollToPosition(0);
     }
 
     @Override
@@ -108,7 +148,13 @@ public class ChatroomActivity extends AppCompatActivity implements Toolbar.OnMen
                 .setTitle(R.string.edit_chat_name)
                 .setView(container)
                 .setPositiveButton(R.string.apply, (dialogInterface, i) -> {
-                    toolbar.setTitle(editChatName.getText().toString().trim());
+                    String chatName = editChatName.getText().toString().trim();
+                    toolbar.setTitle(chatName);
+
+                    // only update name with server if chat has already been created
+                    if (!newChat) {
+                        presenter.updateChatName(chatName);
+                    }
                 })
                 .setNegativeButton(android.R.string.cancel, null)
                 .show();
