@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,7 +42,9 @@ public class AccountFragment extends Fragment implements AccountView {
     private TextWatcher updateTextWatcher = new SimpleTextWatcher() {
         @Override
         public void onTextChanged(String text) {
-            update.setEnabled(getInputName().length() > 0 && getInputEmail().length() > 0);
+            boolean validName = getInputName().length() > 0;
+            boolean validEmail = Patterns.EMAIL_ADDRESS.matcher(getInputEmail()).matches();
+            update.setEnabled(validName && validEmail);
         }
     };
 

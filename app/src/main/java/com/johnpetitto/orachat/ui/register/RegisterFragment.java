@@ -3,6 +3,8 @@ package com.johnpetitto.orachat.ui.register;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import com.johnpetitto.orachat.ui.AccountAccessActivity;
 import com.johnpetitto.orachat.R;
+import com.johnpetitto.orachat.ui.SimpleTextWatcher;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +32,19 @@ public class RegisterFragment extends Fragment implements RegisterView {
     private AccountAccessActivity activity;
     private RegisterPresenter presenter;
 
+    private TextWatcher registerTextWatcher = new SimpleTextWatcher() {
+        @Override
+        public void onTextChanged(String text) {
+            boolean validName = getInputName().length() > 0;
+            boolean validEmail = Patterns.EMAIL_ADDRESS.matcher(getInputEmail()).matches();
+
+            String password = getInputPassword();
+            boolean validPassword = password.length() > 0 && password.equals(getInputConfirm());
+
+            button.setEnabled(validName && validEmail && validPassword);
+        }
+    };
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,6 +52,12 @@ public class RegisterFragment extends Fragment implements RegisterView {
         unbinder = ButterKnife.bind(this, rootView);
         activity = (AccountAccessActivity) getActivity();
         presenter = new RegisterPresenter(this, activity.getUserModel());
+
+        name.addTextChangedListener(registerTextWatcher);
+        email.addTextChangedListener(registerTextWatcher);
+        password.addTextChangedListener(registerTextWatcher);
+        confirm.addTextChangedListener(registerTextWatcher);
+
         return rootView;
     }
 
@@ -48,12 +70,7 @@ public class RegisterFragment extends Fragment implements RegisterView {
 
     @OnClick(R.id.register_button)
     public void register(View view) {
-        presenter.register(
-                name.getText().toString(),
-                email.getText().toString(),
-                password.getText().toString(),
-                confirm.getText().toString()
-        );
+        presenter.register(getInputName(), getInputEmail(), getInputPassword(), getInputConfirm());
     }
 
     @Override
@@ -69,5 +86,21 @@ public class RegisterFragment extends Fragment implements RegisterView {
     @Override
     public void navigateToMain() {
         activity.startMainActivity();
+    }
+
+    private String getInputName() {
+        return name.getText().toString().trim();
+    }
+
+    private String getInputEmail() {
+        return email.getText().toString().trim();
+    }
+
+    private String getInputPassword() {
+        return password.getText().toString();
+    }
+
+    private String getInputConfirm() {
+        return confirm.getText().toString();
     }
 }

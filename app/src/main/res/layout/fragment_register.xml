@@ -61,6 +61,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/register"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:enabled="false"
+        style="@style/Widget.AppCompat.Button.Colored" />
 
 </LinearLayout>

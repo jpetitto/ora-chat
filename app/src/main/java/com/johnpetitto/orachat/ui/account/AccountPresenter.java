@@ -24,7 +24,7 @@ public class AccountPresenter {
     public void getCurrentUserInfo() {
         view.showLoading(true);
 
-        model.getCurrentUser()
+        disposable = model.getCurrentUser()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(user -> {
                     view.populateAccountInfo(user.getName(), user.getEmail());
