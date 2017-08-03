@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">OraChat</string>
 
+    <!-- account -->
     <string name="register">Register</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
@@ -12,12 +13,13 @@
 
     <string name="registration_error">There was an error trying to register.</string>
     <string name="login_error">There was an error attempting to login.</string>
-    <string name="generic_error">Oops, something went wrong!</string>
     <string name="email_error">Enter a valid email</string>
     <string name="name_error">Name is required</string>
     <string name="password_error">Must be at least 6 characters</string>
     <string name="confirm_error">Password does not match</string>
+    <string name="generic_error">Oops, something went wrong!</string>
 
+    <!-- chat -->
     <string name="chat">Chat</string>
     <string name="account">Account</string>
 
@@ -31,7 +33,6 @@
 
     <string name="chat_item_name">%1$s by %2$s</string>
     <string name="chat_message_timestamp">%1$s - %2$s</string>
-
     <string name="chat_message_hint">Write something…</string>
 
     <string name="today">Today</string>
