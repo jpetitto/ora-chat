@@ -39,7 +39,6 @@ public class LoginFragment extends Fragment implements LoginView {
         unbinder = ButterKnife.bind(this, rootView);
         activity = (AccountAccessActivity) getActivity();
         presenter = new LoginPresenter(this, activity.getUserModel());
-
         return rootView;
     }
 

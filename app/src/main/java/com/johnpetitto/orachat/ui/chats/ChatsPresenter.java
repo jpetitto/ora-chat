@@ -49,6 +49,17 @@ public class ChatsPresenter {
                 .subscribe(subscriber);
     }
 
+    public void loadMoreChats() {
+        closeDisposable();
+
+        disposable = model.loadMoreChats()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(chatsGroupedByDate -> {
+                    view.showMoreChatsByDate(chatsGroupedByDate);
+                    view.pageLoaded();
+                }, throwable -> view.pageLoaded(), () -> view.pageLoaded());
+    }
+
     private void closeDisposable() {
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();

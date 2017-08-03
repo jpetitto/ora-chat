@@ -23,13 +23,6 @@ public class UserModel {
 
     public Completable loginUser(String email, String password) {
         return service.login(new UserCredentials(email, password))
-                .doOnSuccess(result -> {
-                    retrofit2.Response<ApiResponse<User>> response = result.response();
-                    if (response != null) {
-                        String token = response.headers().get("Authorization");
-                        preferences.setAuthorizationToken(token);
-                    }
-                })
                 .flatMap(result -> {
                     retrofit2.Response<ApiResponse<User>> response = result.response();
                     if (response != null) {

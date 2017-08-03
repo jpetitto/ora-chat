@@ -26,7 +26,7 @@ public abstract class InputValidator {
 
             EditText editText = layout.getEditText();
             if (editText == null) {
-                throw new IllegalArgumentException("TextInputLayout must contain EditText");
+                throw new IllegalStateException("TextInputLayout must contain EditText");
             }
 
             if (validator.validate(StringUtils.getTrimmedInput(editText))) {

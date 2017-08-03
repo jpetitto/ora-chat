@@ -16,7 +16,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class OraChatApplication extends Application {
-    private Retrofit retrofit;
     private UserPreferences userPreferences;
     private UserModel userModel;
     private ChatModel chatModel;
@@ -48,7 +47,7 @@ public class OraChatApplication extends Application {
                 })
                 .build();
 
-        retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .client(httpClient)
                 .baseUrl("https://private-93240c-oracodechallenge.apiary-mock.com")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -59,10 +58,6 @@ public class OraChatApplication extends Application {
         userModel = new UserModel(retrofit.create(UserService.class), userPreferences);
 
         chatModel = new ChatModel(retrofit.create(ChatService.class));
-    }
-
-    public Retrofit getRetrofit() {
-        return retrofit;
     }
 
     public UserModel getUserModel() {

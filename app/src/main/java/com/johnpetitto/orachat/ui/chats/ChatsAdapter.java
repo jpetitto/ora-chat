@@ -100,9 +100,15 @@ public class ChatsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         return data.get(position) instanceof String ? HEADER_TYPE : ITEM_TYPE;
     }
 
-    public void setData(List<Object> data) {
-        this.data = data;
+    public void setChatsGroupedByDate(List<Object> chatsGroupedByDate) {
+        data = chatsGroupedByDate;
         notifyDataSetChanged();
+    }
+
+    public void addChatsGroupedByDate(List<Object> chatsGroupedByDate) {
+        int start = data.size();
+        data.addAll(chatsGroupedByDate);
+        notifyItemRangeInserted(start, chatsGroupedByDate.size());
     }
 
     @SuppressWarnings("WeakerAccess")

@@ -42,6 +42,16 @@ public class ChatroomPresenter {
         );
     }
 
+    public void getMoreMessages() {
+        disposables.add(model.loadMoreMessages()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(messages -> {
+                    view.showMoreMessages(messages);
+                    view.pageLoaded();
+                }, throwable -> view.pageLoaded(), () -> view.pageLoaded())
+        );
+    }
+
     public void sendMessage(String message) {
         disposables.add(model.sendMessage(message)
                 .observeOn(AndroidSchedulers.mainThread())

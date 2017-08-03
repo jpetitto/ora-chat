@@ -26,6 +26,7 @@ import com.johnpetitto.orachat.R;
 import com.johnpetitto.orachat.StringUtils;
 import com.johnpetitto.orachat.data.chat.ChatMessage;
 import com.johnpetitto.orachat.data.chat.ChatModel;
+import com.johnpetitto.orachat.ui.PagingScrollListener;
 import com.johnpetitto.orachat.ui.SimpleTextWatcher;
 
 import java.util.List;
@@ -35,7 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ChatroomActivity extends AppCompatActivity implements ChatroomView, Toolbar.OnMenuItemClickListener {
+public class ChatroomActivity extends AppCompatActivity implements ChatroomView, Toolbar.OnMenuItemClickListener, PagingScrollListener.OnPageListener {
     @BindView(R.id.chatroom_toolbar) Toolbar toolbar;
     @BindView(R.id.chatroom_content) LinearLayout content;
     @BindView(R.id.chatroom_recycler_view) RecyclerView recyclerView;
@@ -50,6 +51,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
 
     private ChatroomPresenter presenter;
     private ChatroomAdapter adapter;
+    private PagingScrollListener scrollListener;
 
     private boolean newChat;
 
@@ -69,6 +71,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
         adapter = new ChatroomAdapter(bubbleNormalPadding, bubbleStartPadding, bubbleEndPadding);
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnScrollListener(scrollListener = new PagingScrollListener(this));
 
         sendButton.setEnabled(false);
         sendMessage.addTextChangedListener(new SimpleTextWatcher() {
@@ -108,15 +111,28 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
 
     @Override
     public void showInitialMessages(List<ChatMessage> messages) {
-        for (ChatMessage message : messages) {
-            showNewMessage(message);
-        }
+        adapter.setMessages(messages);
     }
 
     @Override
     public void showNewMessage(ChatMessage message) {
         adapter.addMessage(message);
         recyclerView.scrollToPosition(0);
+    }
+
+    @Override
+    public void showMoreMessages(List<ChatMessage> messages) {
+        adapter.addMessages(messages);
+    }
+
+    @Override
+    public void pageLoaded() {
+        scrollListener.loadingComplete();
+    }
+
+    @Override
+    public void loadPage() {
+        presenter.getMoreMessages();
     }
 
     @OnClick(R.id.chatroom_send_button)

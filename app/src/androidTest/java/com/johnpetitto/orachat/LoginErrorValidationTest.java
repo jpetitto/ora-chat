@@ -52,7 +52,7 @@ public class LoginErrorValidationTest {
         );
     }
 
-    public static Matcher<View> hasExpectedError(String expectedError) {
+    private static Matcher<View> hasExpectedError(String expectedError) {
         return new TypeSafeMatcher<View>() {
             @Override
             protected boolean matchesSafely(View item) {

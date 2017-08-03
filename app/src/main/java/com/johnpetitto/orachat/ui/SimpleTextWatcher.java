@@ -10,7 +10,7 @@ public abstract class SimpleTextWatcher implements TextWatcher {
     public final void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
     @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+    public final void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         onTextChanged(charSequence.toString());
     }
 

@@ -65,10 +65,6 @@ public class ChatroomAdapter extends RecyclerView.Adapter<ChatroomAdapter.VHItem
             holder.message.setPaddingRelative(startPadding, normalPadding, normalPadding, normalPadding);
             holder.message.setBackgroundResource(R.drawable.chat_bubble_left);
         }
-
-//        ((LinearLayout) holder.itemView).setGravity(Gravity.START);
-//        holder.message.setGravity(Gravity.START);
-//        holder.message.setBackgroundResource(R.drawable.chat_bubble_left);
     }
 
     @Override
@@ -76,9 +72,20 @@ public class ChatroomAdapter extends RecyclerView.Adapter<ChatroomAdapter.VHItem
         return messages.size();
     }
 
+    public void setMessages(List<ChatMessage> messages) {
+        this.messages = messages;
+        notifyDataSetChanged();
+    }
+
     public void addMessage(ChatMessage message) {
         messages.add(0, message);
         notifyItemInserted(0);
+    }
+
+    public void addMessages(List<ChatMessage> chatMessages) {
+        int start = messages.size();
+        messages.addAll(chatMessages);
+        notifyItemRangeInserted(start, chatMessages.size());
     }
 
     // for demo purposes since API returns static data

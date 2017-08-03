@@ -9,4 +9,6 @@ public interface ChatroomView {
     void showError();
     void showInitialMessages(List<ChatMessage> messages);
     void showNewMessage(ChatMessage message);
+    void showMoreMessages(List<ChatMessage> messages);
+    void pageLoaded();
 }
