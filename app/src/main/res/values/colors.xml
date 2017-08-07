@@ -5,8 +5,7 @@
     <color name="colorAccent">#f3a537</color>
 
     <color name="background">@android:color/white</color>
-    
-    <color name="white_50">#7dffffff</color>
-    <color name="light_grey">#e1e1e1</color>
-    <color name="dark_grey">#b6b6b6</color>
+    <color name="action_mode_background">#fafafa</color>
+    <color name="tab_unselected">#7dffffff</color>
+    <color name="gray">#b6b6b6</color>
 </resources>

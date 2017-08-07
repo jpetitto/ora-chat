@@ -31,6 +31,14 @@
     <string name="edit">Edit</string>
     <string name="update">Update</string>
 
+    <string name="share">Share</string>
+    <string name="copy">Copy text</string>
+    <string name="copy_complete">Copied!</string>
+    <string name="delete">Delete</string>
+    <string name="delete_title">Delete this message?</string>
+    <string name="delete_message">This action cannot be undone.</string>
+
+
     <string name="chat_item_name">%1$s by %2$s</string>
     <string name="chat_message_timestamp">%1$s - %2$s</string>
     <string name="chat_message_hint">Write something…</string>

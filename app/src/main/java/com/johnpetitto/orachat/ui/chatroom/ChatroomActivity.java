@@ -1,5 +1,7 @@
 package com.johnpetitto.orachat.ui.chatroom;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +12,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.view.ActionMode;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +41,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ChatroomActivity extends AppCompatActivity implements ChatroomView, Toolbar.OnMenuItemClickListener, PagingScrollListener.OnPageListener {
+public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
+        Toolbar.OnMenuItemClickListener, PagingScrollListener.OnPageListener,
+        ChatroomAdapter.OnMessageSelectListener, ActionMode.Callback {
+
     @BindView(R.id.chatroom_toolbar) Toolbar toolbar;
     @BindView(R.id.chatroom_content) LinearLayout content;
     @BindView(R.id.chatroom_recycler_view) RecyclerView recyclerView;
@@ -54,6 +62,8 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
     private PagingScrollListener scrollListener;
 
     private boolean newChat;
+    private ActionMode actionMode;
+    private ChatMessage activeMessage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,7 +79,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
         toolbar.setOnMenuItemClickListener(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
-        adapter = new ChatroomAdapter(bubbleNormalPadding, bubbleStartPadding, bubbleEndPadding);
+        adapter = new ChatroomAdapter(bubbleNormalPadding, bubbleStartPadding, bubbleEndPadding, this);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnScrollListener(scrollListener = new PagingScrollListener(this));
 
@@ -152,6 +162,16 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
     }
 
     @Override
+    public void onMessageSelect(ChatMessage message) {
+        activeMessage = message;
+
+        // only start action mode if it's not already visible
+        if (actionMode == null) {
+            actionMode = startActionMode(this);
+        }
+    }
+
+    @Override
     public boolean onMenuItemClick(MenuItem item) {
         // show dialog for editing chat name
         EditText editChatName = new EditText(this);
@@ -201,5 +221,65 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
         });
 
         return true;
+    }
+
+    @Override
+    public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+        MenuInflater inflater = actionMode.getMenuInflater();
+        inflater.inflate(R.menu.menu_action_chatroom, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+        return false;
+    }
+
+    @Override
+    public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.share:
+                shareMessage();
+                break;
+            case R.id.copy:
+                copyMessage();
+                break;
+            case R.id.delete:
+                showDeleteMessageDialog();
+                break;
+        }
+
+        actionMode.finish();
+        return true;
+    }
+
+    @Override
+    public void onDestroyActionMode(ActionMode actionMode) {
+        this.actionMode = null;
+        adapter.deselectMessage();
+    }
+
+    private void shareMessage() {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, activeMessage.getMessage());
+        intent.setType("text/plain");
+        startActivity(Intent.createChooser(intent, getString(R.string.share)));
+    }
+
+    private void copyMessage() {
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+        ClipData clip = ClipData.newPlainText(null, activeMessage.getMessage());
+        clipboard.setPrimaryClip(clip);
+        Toast.makeText(this, R.string.copy_complete, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showDeleteMessageDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.delete_title)
+                .setMessage(R.string.delete_message)
+                .setPositiveButton(R.string.delete, (dialogInterface, i) -> adapter.removeMessage(activeMessage))
+                .setNegativeButton(android.R.string.cancel, null)
+                .show();
     }
 }

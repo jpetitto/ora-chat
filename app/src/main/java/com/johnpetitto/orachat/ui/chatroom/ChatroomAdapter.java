@@ -30,10 +30,18 @@ public class ChatroomAdapter extends RecyclerView.Adapter<ChatroomAdapter.VHItem
     private int startPadding;
     private int endPadding;
 
-    public ChatroomAdapter(int normalPadding, int startPadding, int endPadding) {
+    private OnMessageSelectListener listener;
+    private ChatMessage selectedMessage;
+
+    public interface OnMessageSelectListener {
+        void onMessageSelect(ChatMessage message);
+    }
+
+    public ChatroomAdapter(int normalPadding, int startPadding, int endPadding, OnMessageSelectListener listener) {
         this.normalPadding = normalPadding;
         this.startPadding = startPadding;
         this.endPadding = endPadding;
+        this.listener = listener;
     }
 
     @Override
@@ -59,12 +67,14 @@ public class ChatroomAdapter extends RecyclerView.Adapter<ChatroomAdapter.VHItem
         if (message.getUserId() == USER_ID) {
             ((LinearLayout) holder.itemView).setGravity(Gravity.END);
             holder.message.setPaddingRelative(normalPadding, normalPadding, endPadding, normalPadding);
-            holder.message.setBackgroundResource(R.drawable.chat_bubble_right);
+            holder.message.setBackgroundResource(R.drawable.color_state_chat_bubble_right);
         } else {
             ((LinearLayout) holder.itemView).setGravity(Gravity.START);
             holder.message.setPaddingRelative(startPadding, normalPadding, normalPadding, normalPadding);
-            holder.message.setBackgroundResource(R.drawable.chat_bubble_left);
+            holder.message.setBackgroundResource(R.drawable.color_state_chat_bubble_left);
         }
+
+        holder.message.setSelected(message == selectedMessage);
     }
 
     @Override
@@ -95,13 +105,47 @@ public class ChatroomAdapter extends RecyclerView.Adapter<ChatroomAdapter.VHItem
         addMessage(chatMessage);
     }
 
-    static class VHItem extends RecyclerView.ViewHolder {
+    public void removeMessage(ChatMessage message) {
+        int index = messages.indexOf(message);
+        messages.remove(message);
+        notifyItemRemoved(index);
+    }
+
+    public void deselectMessage() {
+        int index = messages.indexOf(selectedMessage);
+        selectedMessage = null;
+        notifyItemChanged(index);
+    }
+
+    private void setSelectedMessage(ChatMessage message) {
+        // message may already be selected
+        if (selectedMessage == message) {
+            return;
+        }
+
+        ChatMessage previousSelectedMessage = selectedMessage;
+        selectedMessage = message;
+        notifyItemChanged(messages.indexOf(selectedMessage));
+
+        // update previously selected message if there was one
+        if (previousSelectedMessage != null) {
+            notifyItemChanged(messages.indexOf(previousSelectedMessage));
+        }
+    }
+
+    class VHItem extends RecyclerView.ViewHolder {
         @BindView(R.id.chatroom_message) TextView message;
         @BindView(R.id.chatroom_timestamp) TextView timestamp;
 
         public VHItem(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnLongClickListener(view -> {
+                ChatMessage message = messages.get(getAdapterPosition());
+                setSelectedMessage(message);
+                listener.onMessageSelect(message);
+                return true;
+            });
         }
     }
 }

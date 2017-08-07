@@ -6,6 +6,9 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorButtonNormal">?colorPrimary</item>
         <item name="colorControlHighlight">?colorPrimaryDark</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeBackground">@color/action_mode_background</item>
+        <item name="android:actionModeCloseDrawable">@drawable/ic_close</item>
         <item name="android:windowBackground">@color/background</item>
     </style>
 
@@ -20,7 +23,7 @@
     </style>
 
     <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
-        <item name="android:textColor">@color/white_50</item>
+        <item name="android:textColor">@color/tab_unselected</item>
     </style>
 
 </resources>

@@ -82,10 +82,6 @@ public class ChatsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                 item.lastMessage.setText(lastMessage.getMessage());
 
-                item.itemView.setOnClickListener(view ->
-                        listener.onChatClick(chat)
-                );
-
                 break;
         }
     }
@@ -112,14 +108,13 @@ public class ChatsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     @SuppressWarnings("WeakerAccess")
-    static class VHHeader extends RecyclerView.ViewHolder {
+    class VHHeader extends RecyclerView.ViewHolder {
         VHHeader(View itemView) {
             super(itemView);
         }
     }
 
-    @SuppressWarnings("WeakerAccess")
-    static class VHItem extends RecyclerView.ViewHolder {
+    class VHItem extends RecyclerView.ViewHolder {
         @BindView(R.id.chats_item_name) TextView name;
         @BindView(R.id.chats_item_last_update) TextView lastUpdate;
         @BindView(R.id.chats_item_last_message) TextView lastMessage;
@@ -127,6 +122,13 @@ public class ChatsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         VHItem(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Chat chat = (Chat) data.get(getAdapterPosition());
+                    listener.onChatClick(chat);
+                }
+            });
         }
     }
 }

@@ -10,7 +10,7 @@
         android:id="@+id/chatroom_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:elevation="4dp"
+        android:elevation="@dimen/elevation"
         android:background="?colorPrimary"
         app:navigationIcon="@drawable/abc_ic_ab_back_material"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -36,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/content_padding"
+                android:elevation="@dimen/elevation"
                 android:background="@color/light_gray">
 
                 <EditText

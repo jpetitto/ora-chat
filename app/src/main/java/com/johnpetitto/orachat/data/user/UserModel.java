@@ -18,6 +18,7 @@ public class UserModel {
 
     public Completable createUser(String name, String email, String password, String passwordConfirmation) {
         return service.create(new UserCredentials(name, email, password, passwordConfirmation))
+                .compose(new ResponseTransformer<>())
                 .flatMapCompletable(response -> loginUser(email, password));
     }
 
