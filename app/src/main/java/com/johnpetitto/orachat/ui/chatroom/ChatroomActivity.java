@@ -60,6 +60,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
     private ChatroomPresenter presenter;
     private ChatroomAdapter adapter;
     private PagingScrollListener scrollListener;
+    private String chatName;
 
     private boolean newChat;
     private ActionMode actionMode;
@@ -72,8 +73,9 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
+        chatName = intent.getStringExtra("chat_name");
 
-        toolbar.setTitle(intent.getStringExtra("chat_name"));
+        toolbar.setTitle(chatName);
         toolbar.setNavigationOnClickListener(view -> onBackPressed());
         toolbar.inflateMenu(R.menu.menu_chatroom);
         toolbar.setOnMenuItemClickListener(this);
@@ -192,7 +194,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
                 .setTitle(R.string.edit_chat_name)
                 .setView(container)
                 .setPositiveButton(R.string.apply, (dialogInterface, i) -> {
-                    String chatName = StringUtils.getTrimmedInput(editChatName);
+                    chatName = StringUtils.getTrimmedInput(editChatName);
                     toolbar.setTitle(chatName);
 
                     // only update name with server if chat has already been created
@@ -209,7 +211,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
         editChatName.addTextChangedListener(new SimpleTextWatcher() {
             @Override
             public void onTextChanged(String text) {
-                applyButton.setEnabled(text.trim().length() > 0);
+                applyButton.setEnabled(text.trim().length() > 0 && !text.equals(chatName));
             }
         });
 
