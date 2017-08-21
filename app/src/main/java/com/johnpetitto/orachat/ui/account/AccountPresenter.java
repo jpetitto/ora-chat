@@ -40,7 +40,10 @@ public class AccountPresenter {
 
         model.updateCurrentUser(name, email)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> view.showLoading(false), throwable -> {
+                .subscribe(() -> {
+                    view.populateAccountInfo(name, email);
+                    view.showLoading(false);
+                }, throwable -> {
                     view.showError();
                     view.showLoading(false);
                 });
