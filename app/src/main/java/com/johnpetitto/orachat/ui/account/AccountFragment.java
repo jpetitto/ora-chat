@@ -3,7 +3,6 @@ package com.johnpetitto.orachat.ui.account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -23,8 +22,9 @@ import com.johnpetitto.orachat.R;
 import com.johnpetitto.orachat.StringUtils;
 import com.johnpetitto.orachat.data.user.UserModel;
 import com.johnpetitto.orachat.ui.AccountAccessActivity;
-import com.johnpetitto.orachat.ui.InputValidator;
 import com.johnpetitto.orachat.ui.SimpleTextWatcher;
+import com.johnpetitto.validator.ValidatingTextInputLayout;
+import com.johnpetitto.validator.Validators;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,9 +34,9 @@ import butterknife.Unbinder;
 public class AccountFragment extends Fragment implements AccountView {
     @BindView(R.id.account_content) LinearLayout content;
     @BindView(R.id.account_progress_bar) ProgressBar progressBar;
-    @BindView(R.id.account_name_layout) TextInputLayout nameLayout;
+    @BindView(R.id.account_name_layout) ValidatingTextInputLayout nameLayout;
     @BindView(R.id.account_name) EditText name;
-    @BindView(R.id.account_email_layout) TextInputLayout emailLayout;
+    @BindView(R.id.account_email_layout) ValidatingTextInputLayout emailLayout;
     @BindView(R.id.account_email) EditText email;
     @BindView(R.id.account_update) Button update;
     private Unbinder unbinder;
@@ -64,6 +64,8 @@ public class AccountFragment extends Fragment implements AccountView {
 
         name.addTextChangedListener(updateTextWatcher);
         email.addTextChangedListener(updateTextWatcher);
+
+        nameLayout.setValidator(Validators.minimum(1, true));
 
         UserModel model = ((OraChatApplication) getContext().getApplicationContext()).getUserModel();
         presenter = new AccountPresenter(this, model);
@@ -98,12 +100,7 @@ public class AccountFragment extends Fragment implements AccountView {
 
     @OnClick(R.id.account_update)
     public void update(View view) {
-        boolean validated = InputValidator.validateInputs(
-                InputValidator.nameValidator(nameLayout),
-                InputValidator.emailValidator(emailLayout)
-        );
-
-        if (validated) {
+        if (Validators.validate(nameLayout, emailLayout)) {
             presenter.updateCurrentUser(
                     StringUtils.getTrimmedInput(name),
                     StringUtils.getTrimmedInput(email)

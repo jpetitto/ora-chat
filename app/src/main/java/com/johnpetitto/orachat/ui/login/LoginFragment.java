@@ -2,7 +2,6 @@ package com.johnpetitto.orachat.ui.login;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,8 @@ import android.widget.Toast;
 import com.johnpetitto.orachat.R;
 import com.johnpetitto.orachat.StringUtils;
 import com.johnpetitto.orachat.ui.AccountAccessActivity;
-import com.johnpetitto.orachat.ui.InputValidator;
+import com.johnpetitto.validator.ValidatingTextInputLayout;
+import com.johnpetitto.validator.Validators;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,9 +22,9 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class LoginFragment extends Fragment implements LoginView {
-    @BindView(R.id.login_email_layout) TextInputLayout emailLayout;
+    @BindView(R.id.login_email_layout) ValidatingTextInputLayout emailLayout;
     @BindView(R.id.login_email) EditText email;
-    @BindView(R.id.login_password_layout) TextInputLayout passwordLayout;
+    @BindView(R.id.login_password_layout) ValidatingTextInputLayout passwordLayout;
     @BindView(R.id.login_password) EditText password;
     @BindView(R.id.login_button) Button button;
     private Unbinder unbinder;
@@ -39,6 +39,9 @@ public class LoginFragment extends Fragment implements LoginView {
         unbinder = ButterKnife.bind(this, rootView);
         activity = (AccountAccessActivity) getActivity();
         presenter = new LoginPresenter(this, activity.getUserModel());
+
+        passwordLayout.setValidator(Validators.minimum(6, true));
+
         return rootView;
     }
 
@@ -51,12 +54,7 @@ public class LoginFragment extends Fragment implements LoginView {
 
     @OnClick(R.id.login_button)
     public void login(View view) {
-        boolean validated = InputValidator.validateInputs(
-                InputValidator.emailValidator(emailLayout),
-                InputValidator.passwordValidator(passwordLayout)
-        );
-
-        if (validated) {
+        if (Validators.validate(emailLayout, passwordLayout)) {
             presenter.login(
                     StringUtils.getTrimmedInput(email),
                     StringUtils.getTrimmedInput(password)
