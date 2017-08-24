@@ -70,7 +70,7 @@ public class ChatModel {
             currentDate.setTime(parsedDate);
 
             // create properly formatted date label
-            String formattedDate = null;
+            String formattedDate;
             if (currentDate.get(Calendar.YEAR) == today.get(Calendar.YEAR)) {
                 if (currentDate.get(Calendar.DAY_OF_YEAR) == today.get(Calendar.DAY_OF_YEAR)) {
                     formattedDate = "Today";
