@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 26
@@ -26,12 +28,13 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
     // ui
-    compile 'com.android.support:appcompat-v7:26.0.1'
-    compile 'com.android.support:design:26.0.1'
-    compile 'com.android.support:support-v13:26.0.1'
-    compile 'com.android.support:cardview-v7:26.0.1'
+    compile "com.android.support:appcompat-v7:$support_version"
+    compile "com.android.support:design:$support_version"
+    compile "com.android.support:support-v13:$support_version"
+    compile "com.android.support:cardview-v7:$support_version"
     compile 'com.johnpetitto.validator:validator:1.0.2'
     compile 'com.github.arimorty:floatingsearchview:2.1.1'
     compile 'com.jakewharton:butterknife:8.8.1'
@@ -51,4 +54,7 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+}
+repositories {
+    mavenCentral()
 }
