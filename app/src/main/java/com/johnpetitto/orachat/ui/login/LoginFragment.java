@@ -10,8 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.johnpetitto.orachat.ExtensionsKt;
 import com.johnpetitto.orachat.R;
-import com.johnpetitto.orachat.StringUtils;
 import com.johnpetitto.orachat.ui.AccountAccessActivity;
 import com.johnpetitto.validator.ValidatingTextInputLayout;
 import com.johnpetitto.validator.Validators;
@@ -56,8 +56,8 @@ public class LoginFragment extends Fragment implements LoginView {
     public void login(View view) {
         if (Validators.validate(emailLayout, passwordLayout)) {
             presenter.login(
-                    StringUtils.getTrimmedInput(email),
-                    StringUtils.getTrimmedInput(password)
+                    ExtensionsKt.getTrimmedText(email),
+                    ExtensionsKt.getTrimmedText(password)
             );
         }
     }

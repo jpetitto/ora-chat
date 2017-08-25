@@ -26,9 +26,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.johnpetitto.orachat.ExtensionsKt;
 import com.johnpetitto.orachat.OraChatApplication;
 import com.johnpetitto.orachat.R;
-import com.johnpetitto.orachat.StringUtils;
 import com.johnpetitto.orachat.data.chat.ChatMessage;
 import com.johnpetitto.orachat.data.chat.ChatModel;
 import com.johnpetitto.orachat.ui.PagingScrollListener;
@@ -149,7 +149,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
 
     @OnClick(R.id.chatroom_send_button)
     public void sendMessageClick(View view) {
-        String message = StringUtils.getTrimmedInput(sendMessage);
+        String message = ExtensionsKt.getTrimmedText(sendMessage);
 
         adapter.addUserMessage(message); // for demo purposes
 
@@ -194,7 +194,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
                 .setTitle(R.string.edit_chat_name)
                 .setView(container)
                 .setPositiveButton(R.string.apply, (dialogInterface, i) -> {
-                    chatName = StringUtils.getTrimmedInput(editChatName);
+                    chatName = ExtensionsKt.getTrimmedText(editChatName);
                     toolbar.setTitle(chatName);
 
                     // only update name with server if chat has already been created

@@ -17,9 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.johnpetitto.orachat.ExtensionsKt;
 import com.johnpetitto.orachat.OraChatApplication;
 import com.johnpetitto.orachat.R;
-import com.johnpetitto.orachat.StringUtils;
 import com.johnpetitto.orachat.data.user.UserModel;
 import com.johnpetitto.orachat.ui.AccountAccessActivity;
 import com.johnpetitto.orachat.ui.SimpleTextWatcher;
@@ -102,8 +102,8 @@ public class AccountFragment extends Fragment implements AccountView {
     public void update(View view) {
         if (Validators.validate(nameLayout, emailLayout)) {
             presenter.updateCurrentUser(
-                    StringUtils.getTrimmedInput(name),
-                    StringUtils.getTrimmedInput(email)
+                    ExtensionsKt.getTrimmedText(name),
+                    ExtensionsKt.getTrimmedText(email)
             );
         }
     }

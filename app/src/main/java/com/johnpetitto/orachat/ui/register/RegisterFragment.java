@@ -10,8 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.johnpetitto.orachat.ExtensionsKt;
 import com.johnpetitto.orachat.R;
-import com.johnpetitto.orachat.StringUtils;
 import com.johnpetitto.orachat.ui.AccountAccessActivity;
 import com.johnpetitto.validator.ValidatingTextInputLayout;
 import com.johnpetitto.validator.Validators;
@@ -62,10 +62,10 @@ public class RegisterFragment extends Fragment implements RegisterView {
     public void register(View view) {
         if (Validators.validate(nameLayout, emailLayout, passwordLayout, confirmLayout)) {
             presenter.register(
-                    StringUtils.getTrimmedInput(name),
-                    StringUtils.getTrimmedInput(email),
-                    StringUtils.getTrimmedInput(password),
-                    StringUtils.getTrimmedInput(confirm)
+                    ExtensionsKt.getTrimmedText(name),
+                    ExtensionsKt.getTrimmedText(email),
+                    ExtensionsKt.getTrimmedText(password),
+                    ExtensionsKt.getTrimmedText(confirm)
             );
         }
     }
