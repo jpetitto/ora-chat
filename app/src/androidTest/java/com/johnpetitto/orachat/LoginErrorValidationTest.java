@@ -30,10 +30,10 @@ public class LoginErrorValidationTest {
 
     @Test
     public void hasEmailError() {
-        onView(withId(R.id.login_email)).perform(typeText("bad email"));
-        onView(withId(R.id.login_button)).perform(click());
+        onView(withId(R.id.email)).perform(typeText("bad email"));
+        onView(withId(R.id.login)).perform(click());
 
-        onView(withId(R.id.login_email_layout)).check(
+        onView(withId(R.id.emailLayout)).check(
                 matches(hasExpectedError(
                         activityRule.getActivity().getString(R.string.email_error)
                 ))
@@ -42,10 +42,10 @@ public class LoginErrorValidationTest {
 
     @Test
     public void hasPasswordError() {
-        onView(withId(R.id.login_password)).perform(typeText("short"));
-        onView(withId(R.id.login_button)).perform(click());
+        onView(withId(R.id.password)).perform(typeText("short"));
+        onView(withId(R.id.login)).perform(click());
 
-        onView(withId(R.id.login_password_layout)).check(
+        onView(withId(R.id.passwordLayout)).check(
                 matches(hasExpectedError(
                         activityRule.getActivity().getString(R.string.password_error)
                 ))
