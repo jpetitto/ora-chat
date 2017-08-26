@@ -27,7 +27,7 @@ class AccountAccessActivity: AppCompatActivity() {
 
         // automatically sign in if user is authorized
         if (userModel.isAuthorized) {
-            startActivity(MainActivity::class.java, true)
+            startMainActivity()
         }
 
         setContentView(R.layout.activity_account_access)
