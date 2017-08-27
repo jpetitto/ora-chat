@@ -27,34 +27,31 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
     // ui
-    compile "com.android.support:appcompat-v7:$support_version"
-    compile "com.android.support:design:$support_version"
-    compile "com.android.support:support-v13:$support_version"
-    compile "com.android.support:cardview-v7:$support_version"
-    compile 'com.johnpetitto.validator:validator:1.0.2'
-    compile 'com.github.arimorty:floatingsearchview:2.1.1'
-    compile 'com.jakewharton:butterknife:8.8.1'
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation "com.android.support:design:$support_version"
+    implementation "com.android.support:support-v13:$support_version"
+    implementation "com.android.support:cardview-v7:$support_version"
+    implementation 'com.johnpetitto.validator:validator:1.0.2'
+    implementation 'com.github.arimorty:floatingsearchview:2.1.1'
+    implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     // network & data
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.1'
-    compile "io.reactivex.rxjava2:rxjava:2.1.2"
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    implementation "io.reactivex.rxjava2:rxjava:2.1.2"
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     // tests
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.8.47'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.8.47'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-}
-repositories {
-    mavenCentral()
 }
