@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.johnpetitto.orachat.R;
-import com.johnpetitto.orachat.TimeUtils;
+import com.johnpetitto.orachat.TimeUtilsKt;
 import com.johnpetitto.orachat.data.chat.ChatMessage;
 import com.johnpetitto.orachat.data.user.User;
 
@@ -59,7 +59,7 @@ public class ChatroomAdapter extends RecyclerView.Adapter<ChatroomAdapter.VHItem
         holder.message.setText(message.getMessage());
 
         String userName = message.getUser().getName();
-        String timeAgo = TimeUtils.getTimeAgo(context, message.getCreatedAt());
+        String timeAgo = TimeUtilsKt.getTimeAgo(context, message.getCreatedAt());
         String timestamp = context.getString(R.string.chat_message_timestamp, userName, timeAgo);
         holder.timestamp.setText(timestamp);
 
@@ -100,7 +100,7 @@ public class ChatroomAdapter extends RecyclerView.Adapter<ChatroomAdapter.VHItem
 
     // for demo purposes since API returns static data
     public void addUserMessage(String message) {
-        String createdAt = TimeUtils.dateFormatter.format(new Date());
+        String createdAt = TimeUtilsKt.getDateFormatter().format(new Date());
         ChatMessage chatMessage = new ChatMessage(USER_ID, message, createdAt, new User("You"));
         addMessage(chatMessage);
     }

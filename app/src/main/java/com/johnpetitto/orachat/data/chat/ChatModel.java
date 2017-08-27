@@ -1,6 +1,6 @@
 package com.johnpetitto.orachat.data.chat;
 
-import com.johnpetitto.orachat.TimeUtils;
+import com.johnpetitto.orachat.TimeUtilsKt;
 import com.johnpetitto.orachat.data.ApiResponse;
 import com.johnpetitto.orachat.data.Pagination;
 import com.johnpetitto.orachat.data.ResponseTransformer;
@@ -66,7 +66,7 @@ public class ChatModel {
         for (Chat chat : chats) {
             // parse date for most recent chat message
             String createdAt = chat.getLastChatMessage().getCreatedAt();
-            Date parsedDate = TimeUtils.dateFormatter.parse(createdAt);
+            Date parsedDate = TimeUtilsKt.getDateFormatter().parse(createdAt);
             currentDate.setTime(parsedDate);
 
             // create properly formatted date label

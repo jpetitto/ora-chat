@@ -66,6 +66,11 @@
         <item quantity="other">%d days ago</item>
     </plurals>
 
+    <plurals name="months_suffix">
+        <item quantity="one">1 month ago</item>
+        <item quantity="other">%d months ago</item>
+    </plurals>
+
     <plurals name="years_suffix">
         <item quantity="one">1 year ago</item>
         <item quantity="other">%d years ago</item>

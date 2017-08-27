@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.johnpetitto.orachat.R;
-import com.johnpetitto.orachat.TimeUtils;
+import com.johnpetitto.orachat.TimeUtilsKt;
 import com.johnpetitto.orachat.data.chat.Chat;
 import com.johnpetitto.orachat.data.chat.ChatMessage;
 import com.johnpetitto.orachat.data.user.User;
@@ -76,7 +76,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
                 ChatMessage lastMessage = chat.getLastChatMessage();
                 String lastUserName = lastMessage.getUser().getName();
-                String timeAgo = TimeUtils.getTimeAgo(context, lastMessage.getCreatedAt());
+                String timeAgo = TimeUtilsKt.getTimeAgo(context, lastMessage.getCreatedAt());
                 String formattedLastUpdate = context.getString(R.string.chat_message_timestamp, lastUserName, timeAgo);
                 item.lastUpdate.setText(formattedLastUpdate);
 
