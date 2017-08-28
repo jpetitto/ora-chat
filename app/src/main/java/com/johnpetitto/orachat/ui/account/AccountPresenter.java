@@ -50,6 +50,6 @@ public class AccountPresenter {
     }
 
     public void logout() {
-        model.logout().onErrorComplete().subscribe();
+        model.logout().subscribe();
     }
 }
