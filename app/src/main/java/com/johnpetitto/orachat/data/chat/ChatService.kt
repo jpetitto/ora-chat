@@ -6,7 +6,7 @@ import retrofit2.http.*
 
 interface ChatService {
     @GET("chats")
-    fun list(@Query("name") name: String, @Query("page") page: Int, @Query("limit") limit: Int): Single<ApiResponse<List<Chat>>>
+    fun list(@Query("name") name: String?, @Query("page") page: Int, @Query("limit") limit: Int): Single<ApiResponse<List<Chat>>>
 
     @POST("chats")
     fun create(@Body chat: NewChat): Single<ApiResponse<Chat>>
