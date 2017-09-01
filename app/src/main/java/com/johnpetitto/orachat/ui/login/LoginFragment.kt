@@ -36,7 +36,7 @@ class LoginFragment: Fragment(), LoginView {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        presenter.onDestroy()
+        presenter.destroy()
     }
 
     override fun showLoading(show: Boolean) = activity.showProgressBar(show)

@@ -8,7 +8,7 @@ import io.reactivex.disposables.Disposable
 class RegisterPresenter(private val view: RegisterView, private val model: UserModel) {
     private var disposable: Disposable? = null
 
-    fun onDestroy() = disposable?.dispose()
+    fun destroy() = disposable?.dispose()
 
     fun register(name: String, email: String, password: String, passwordConfirmation: String) {
         view.showLoading(true)

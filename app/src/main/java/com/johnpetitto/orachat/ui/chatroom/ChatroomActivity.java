@@ -77,7 +77,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
 
         toolbar.setTitle(chatName);
         toolbar.setNavigationOnClickListener(view -> onBackPressed());
-        toolbar.inflateMenu(R.menu.menu_chatroom);
+        toolbar.inflateMenu(R.menu.chatroom);
         toolbar.setOnMenuItemClickListener(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
@@ -228,7 +228,7 @@ public class ChatroomActivity extends AppCompatActivity implements ChatroomView,
     @Override
     public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
         MenuInflater inflater = actionMode.getMenuInflater();
-        inflater.inflate(R.menu.menu_action_chatroom, menu);
+        inflater.inflate(R.menu.action_chatroom, menu);
         return true;
     }
 

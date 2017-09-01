@@ -8,7 +8,7 @@ import io.reactivex.disposables.Disposable
 class LoginPresenter(private val view: LoginView, private val userModel: UserModel) {
     private var disposable: Disposable? = null
 
-    fun onDestroy() = disposable?.dispose()
+    fun destroy() = disposable?.dispose()
 
     fun login(email: String, password: String) {
         view.showLoading(true)

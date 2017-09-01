@@ -5,10 +5,10 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v7.app.AppCompatActivity
-import android.view.View
 import com.johnpetitto.orachat.OraChatApplication
 import com.johnpetitto.orachat.R
 import com.johnpetitto.orachat.data.user.UserModel
+import com.johnpetitto.orachat.show
 import com.johnpetitto.orachat.startActivity
 import com.johnpetitto.orachat.ui.login.LoginFragment
 import com.johnpetitto.orachat.ui.register.RegisterFragment
@@ -56,8 +56,8 @@ class AccountAccessActivity: AppCompatActivity() {
     }
 
     fun showProgressBar(show: Boolean) {
-        progress.visibility = if (show) View.VISIBLE else View.INVISIBLE
-        viewPager.visibility = if (show) View.INVISIBLE else View.VISIBLE
+        progress.show(show)
+        viewPager.show(show)
     }
 
     fun startMainActivity() = startActivity(MainActivity::class.java, true)

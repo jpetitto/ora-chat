@@ -9,20 +9,20 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/account_content"
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="@dimen/content_padding"
             android:orientation="vertical">
 
             <com.johnpetitto.validator.ValidatingTextInputLayout
-                android:id="@+id/account_name_layout"
+                android:id="@+id/nameLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:errorLabel="@string/name_error">
 
                 <EditText
-                    android:id="@+id/account_name"
+                    android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/name_hint"
@@ -31,14 +31,14 @@
             </com.johnpetitto.validator.ValidatingTextInputLayout>
 
             <com.johnpetitto.validator.ValidatingTextInputLayout
-                android:id="@+id/account_email_layout"
+                android:id="@+id/emailLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:validator="email"
                 app:errorLabel="@string/email_error">
 
                 <EditText
-                    android:id="@+id/account_email"
+                    android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email_hint"
@@ -47,7 +47,7 @@
             </com.johnpetitto.validator.ValidatingTextInputLayout>
 
             <Button
-                android:id="@+id/account_update"
+                android:id="@+id/update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/update"
@@ -59,7 +59,7 @@
     </android.support.v4.widget.NestedScrollView>
 
     <ProgressBar
-        android:id="@+id/account_progress_bar"
+        android:id="@+id/progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
