@@ -8,7 +8,7 @@
               android:orientation="vertical">
 
     <TextView
-        android:id="@+id/chats_item_name"
+        android:id="@+id/chatName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lines="1"
@@ -16,7 +16,7 @@
         tools:text="Chat by John" />
     
     <TextView
-        android:id="@+id/chats_item_last_update"
+        android:id="@+id/lastUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -27,7 +27,7 @@
         tools:text="John - 23 mins ago" />
     
     <TextView
-        android:id="@+id/chats_item_last_message"
+        android:id="@+id/lastMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:lines="1"

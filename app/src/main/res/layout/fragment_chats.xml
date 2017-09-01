@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto">
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!-- CoordinatorLayout + RelativeLayout required for FloatingSearchView -->
 
@@ -12,14 +13,14 @@
 
         <!-- Top padding required to sit below FloatingSearchView -->
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/chats_recycler_view"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingTop="70dp"
             android:clipToPadding="false" />
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/chats_new"
+            android:id="@+id/newChat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -29,7 +30,7 @@
             android:tint="@android:color/white" />
 
         <com.arlib.floatingsearchview.FloatingSearchView
-            android:id="@+id/chats_search_view"
+            android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:floatingSearch_searchBarMarginTop="@dimen/content_padding"
@@ -37,7 +38,7 @@
             app:floatingSearch_searchBarMarginRight="@dimen/content_padding" />
 
         <ProgressBar
-            android:id="@+id/chats_progress_bar"
+            android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
