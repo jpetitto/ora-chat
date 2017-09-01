@@ -7,11 +7,11 @@
               android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/chatroom_toolbar"
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:elevation="@dimen/elevation"
-        android:background="?colorPrimary"
+        android:background="@color/colorPrimary"
         app:navigationIcon="@drawable/abc_ic_ab_back_material"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         tools:ignore="PrivateResource" />
@@ -21,13 +21,13 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/chatroom_content"
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/chatroom_recycler_view"
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
@@ -40,7 +40,7 @@
                 android:background="@color/light_gray">
 
                 <EditText
-                    android:id="@+id/chatroom_send_message"
+                    android:id="@+id/sendMessage"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -50,7 +50,7 @@
                     android:imeOptions="actionSend"/>
 
                 <ImageView
-                    android:id="@+id/chatroom_send_button"
+                    android:id="@+id/sendButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
@@ -65,7 +65,7 @@
         </LinearLayout>
 
         <ProgressBar
-            android:id="@+id/chatroom_progress_bar"
+            android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

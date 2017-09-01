@@ -14,13 +14,10 @@ private const val HEADER_TYPE = 0
 private const val ITEM_TYPE = 1
 
 class ChatsAdapter(
-        private val listener: OnChatClickListener,
-        private var chatData: MutableList<Any> = mutableListOf()):
+        private val onChatClick: (chat: Chat) -> Unit):
         RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
-    interface OnChatClickListener {
-        fun onChatClick(chat: Chat)
-    }
+    private val chatData: MutableList<Any> = mutableListOf()
 
     override fun getItemCount() = chatData.size
 
@@ -81,7 +78,7 @@ class ChatsAdapter(
             itemView.lastUpdate.text = lastUpdate
             itemView.lastMessage.text = lastMessage.message
 
-            itemView.setOnClickListener { listener.onChatClick(chatData[adapterPosition] as Chat) }
+            itemView.setOnClickListener { onChatClick((chatData[adapterPosition] as Chat)) }
         }
     }
 }
