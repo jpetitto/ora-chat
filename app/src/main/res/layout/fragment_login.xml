@@ -16,7 +16,7 @@
             app:validator="email"
             app:errorLabel="@string/email_error">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             app:errorLabel="@string/password_error"
             app:passwordToggleEnabled="true">
 
-            <EditText
+            <android.support.design.widget.TextInputEditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
