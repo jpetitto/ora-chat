@@ -4,8 +4,11 @@
     <color name="colorPrimaryDark">#e28b1c</color>
     <color name="colorAccent">#f3a537</color>
 
-    <color name="background">@android:color/white</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="gray">#b6b6b6</color>
+
+    <color name="background">@color/white</color>
     <color name="action_mode_background">#fafafa</color>
     <color name="tab_unselected">#7dffffff</color>
-    <color name="gray">#b6b6b6</color>
 </resources>

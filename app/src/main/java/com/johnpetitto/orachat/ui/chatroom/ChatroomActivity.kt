@@ -172,7 +172,7 @@ class ChatroomActivity:
                 .setPositiveButton(R.string.delete, { _: DialogInterface, _: Int ->
                     chatroomAdapter.removeMessage(activeMessage)
                 })
-                .setNegativeButton(android.R.string.cancel, null)
+                .setNegativeButton(R.string.cancel, null)
                 .show()
     }
 
@@ -204,7 +204,7 @@ class ChatroomActivity:
                         presenter.updateChatName(chatName)
                     }
                 })
-                .setNegativeButton(android.R.string.cancel, null)
+                .setNegativeButton(R.string.cancel, null)
                 .show()
 
         val applyButton = dialog.getButton(DialogInterface.BUTTON_POSITIVE)

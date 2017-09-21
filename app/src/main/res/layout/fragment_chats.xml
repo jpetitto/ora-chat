@@ -27,7 +27,7 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="16dp"
             android:src="@drawable/ic_add"
-            android:tint="@android:color/white" />
+            android:tint="@color/white" />
 
         <com.arlib.floatingsearchview.FloatingSearchView
             android:id="@+id/search"

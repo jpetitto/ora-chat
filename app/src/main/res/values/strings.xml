@@ -30,6 +30,7 @@
     <string name="send">Send</string>
     <string name="edit">Edit</string>
     <string name="update">Update</string>
+    <string name="cancel">Cancel</string>
 
     <string name="share">Share</string>
     <string name="copy">Copy text</string>
